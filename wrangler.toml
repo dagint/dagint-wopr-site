@@ -1,4 +1,20 @@
 # Cloudflare Pages – DaGint site
-# Deploy: build first (npm run build), then: npx wrangler pages deploy dist
-name = "dagint-wopr-site"
+# This file is for manual CLI deployments only (npx wrangler pages deploy dist)
+# For Git-based deployments, Cloudflare Pages ignores this file
+name = "dagint-site"
 pages_build_output_dir = "./dist"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
