@@ -3,11 +3,11 @@ import Layout from '@/layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
 const PAGE_SIZE = 10;
-const allPosts = (await getCollection('blog'))
-  .filter((p) => p.data.published !== false)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 export async function getStaticPaths() {
+  const allPosts = (await getCollection('blog'))
+    .filter((p) => p.data.published !== false)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
   const totalPagesCount = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
   return Array.from({ length: totalPagesCount }, (_, i) => ({
     params: { page: String(i + 1) },
