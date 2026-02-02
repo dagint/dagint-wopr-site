@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A2540"/>
+      <stop offset="50%" stop-color="#1E40AF"/>
+      <stop offset="100%" stop-color="#0A2540"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="2" fill="#60A5FA" fill-opacity="0.4"/>
+    </pattern>
+    <pattern id="lines" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 0 20 L 20 0 M -20 20 L 20 -20 M 0 40 L 40 0" stroke="#1E40AF" stroke-width="0.5" fill="none" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <rect width="1200" height="800" fill="url(#lines)"/>
+  <!-- WOPR-style "LED" blocks -->
+  <g fill="#60A5FA" fill-opacity="0.15">
+    <rect x="100" y="200" width="8" height="8" rx="1"/>
+    <rect x="120" y="200" width="8" height="8" rx="1"/>
+    <rect x="140" y="200" width="8" height="8" rx="1"/>
+    <rect x="200" y="220" width="8" height="8" rx="1"/>
+    <rect x="220" y="220" width="8" height="8" rx="1"/>
+    <rect x="180" y="380" width="8" height="8" rx="1"/>
+    <rect x="200" y="380" width="8" height="8" rx="1"/>
+    <rect x="1000" y="300" width="8" height="8" rx="1"/>
+    <rect x="1020" y="300" width="8" height="8" rx="1"/>
+    <rect x="1040" y="300" width="8" height="8" rx="1"/>
+    <rect x="980" y="480" width="8" height="8" rx="1"/>
+    <rect x="1000" y="480" width="8" height="8" rx="1"/>
+  </g>
+</svg>

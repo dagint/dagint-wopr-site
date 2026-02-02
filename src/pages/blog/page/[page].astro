@@ -1,0 +1,94 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const PAGE_SIZE = 10;
+const allPosts = (await getCollection('blog'))
+  .filter((p) => p.data.published !== false)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const totalPages = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
+
+export async function getStaticPaths() {
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: {
+      posts: allPosts.slice(i * PAGE_SIZE, (i + 1) * PAGE_SIZE),
+      currentPage: i + 1,
+      totalPages,
+      hasPrev: i > 0,
+      hasNext: i < totalPages - 1,
+    },
+  }));
+}
+
+const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
+---
+
+<Layout title={`Blog — Page ${currentPage}`}>
+  <section class="page-banner flex items-end pb-8 sm:pb-10">
+    <div class="absolute inset-0 opacity-40" aria-hidden="true">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="wopr-grid-blog-paged" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="16" cy="16" r="2" fill="var(--wopr-accent)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#wopr-grid-blog-paged)" />
+      </svg>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+      <h1 class="page-title-on-banner">Blog</h1>
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">
+        Page {currentPage} of {totalPages}
+      </p>
+    </div>
+  </section>
+
+  <div class="page-section">
+    {posts.length === 0 ? (
+      <p class="text-gray-600">No more posts.</p>
+    ) : (
+      <ul class="space-y-6">
+        {posts.map((entry) => (
+          <li>
+            <article class="card p-5 border-l-4 border-l-[var(--wopr-accent)]/50 hover:border-l-[var(--wopr-accent)] transition-colors">
+              <a href={`/blog/${entry.slug}`} class="block group">
+                <h2 class="font-semibold text-[var(--wopr-primary)] text-lg group-hover:text-[var(--wopr-secondary)] transition-colors">
+                  {entry.data.title}
+                </h2>
+                <p class="text-gray-600 text-sm mt-1">{entry.data.summary}</p>
+                <time class="text-xs text-gray-500 mt-2 block" datetime={entry.data.date.toISOString()}>
+                  {entry.data.date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+              </a>
+            </article>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <nav class="mt-10 flex items-center justify-between gap-4 text-sm" aria-label="Blog pagination">
+      <span>
+        {hasPrev ? (
+          <a href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`} class="font-medium text-[var(--wopr-accent)] hover:underline">
+            ← Newer posts
+          </a>
+        ) : (
+          <span class="text-gray-400">← Newer posts</span>
+        )}
+      </span>
+      <span class="text-gray-500">
+        Page {currentPage} of {totalPages}
+      </span>
+      <span>
+        {hasNext ? (
+          <a href={`/blog/page/${currentPage + 1}`} class="font-medium text-[var(--wopr-accent)] hover:underline">
+            Older posts →
+          </a>
+        ) : (
+          <span class="text-gray-400">Older posts →</span>
+        )}
+      </span>
+    </nav>
+  </div>
+</Layout>

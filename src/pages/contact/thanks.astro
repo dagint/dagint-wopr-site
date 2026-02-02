@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Message sent">
+  <section class="page-banner flex items-end pb-8 sm:pb-10">
+    <div class="absolute inset-0 opacity-40" aria-hidden="true">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="wopr-grid-thanks" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="16" cy="16" r="2" fill="var(--wopr-accent)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#wopr-grid-thanks)" />
+      </svg>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+      <h1 class="page-title-on-banner">Thank you</h1>
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-xl">
+        Your message has been sent. We’ll get back to you soon.
+      </p>
+    </div>
+  </section>
+
+  <div class="page-section max-w-xl">
+    <div class="card p-5 sm:p-6 border-l-4 border-l-[var(--wopr-accent)] text-center">
+      <p class="text-gray-600 mb-6">
+        In the meantime, you can browse our <a href="/services" class="text-[var(--wopr-accent)] font-medium hover:underline">services</a> or read our <a href="/blog" class="text-[var(--wopr-accent)] font-medium hover:underline">blog</a>.
+      </p>
+      <a href="/" class="inline-flex items-center px-5 py-2.5 rounded-md text-sm font-medium text-white bg-[var(--wopr-primary)] hover:bg-[var(--wopr-secondary)] transition-colors">
+        Back to home
+      </a>
+    </div>
+  </div>
+</Layout>

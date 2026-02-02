@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global focus-visible styles for accessibility */
+:root {
+  --focus-ring: 2px solid var(--wopr-accent, #60a5fa);
+  --focus-offset: 2px;
+}
+
+*:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* Page layout: banner strip + content sections */
+.page-banner {
+  position: relative;
+  min-height: 12rem;
+  background-color: var(--wopr-header, #1e3a5f);
+  padding-top: 2rem;
+}
+.page-title-on-banner {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: white;
+  font-family: ui-monospace, monospace;
+  letter-spacing: -0.025em;
+}
+.page-section {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1rem 3rem;
+}
+@media (min-width: 640px) {
+  .page-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--wopr-primary, #0a2540);
+}
+.card {
+  background: var(--wopr-card, #f8fafc);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.section-alt {
+  background: rgba(30, 64, 175, 0.04);
+}
+
+/* Blog post prose: ensure lists and spacing render correctly */
+.blog-post.prose {
+  --tw-prose-links: var(--wopr-secondary);
+  --tw-prose-headings: var(--wopr-primary);
+}
+.blog-post.prose ul {
+  list-style-type: disc;
+  padding-left: 1.625em;
+}
+.blog-post.prose ol {
+  list-style-type: decimal;
+  padding-left: 1.625em;
+}
+.blog-post.prose li {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+.blog-post.prose p + p {
+  margin-top: 1em;
+}
+.blog-post.prose h2 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.25em;
+  line-height: 1.4;
+}
+.blog-post.prose h2:first-child {
+  margin-top: 0;
+}
+.blog-post.prose a {
+  color: var(--wopr-secondary);
+  font-weight: 500;
+}
+.blog-post.prose a:hover {
+  text-decoration: underline;
+}

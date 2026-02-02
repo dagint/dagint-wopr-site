@@ -1,0 +1,4 @@
+# Cloudflare Pages – DaGint site
+# Deploy: build first (npm run build), then: npx wrangler pages deploy dist
+name = "dagint-wopr-site"
+pages_build_output_dir = "./dist"

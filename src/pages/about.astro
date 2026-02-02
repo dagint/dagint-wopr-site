@@ -1,0 +1,36 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="About" description="About DaGint Computer Support — professional IT support, repair, networking, and remote support.">
+  <section class="page-banner flex items-end pb-8 sm:pb-10">
+    <div class="absolute inset-0 opacity-40" aria-hidden="true">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="wopr-grid-about" width="32" height="32" patternUnits="userSpaceOnUse">
+            <circle cx="16" cy="16" r="2" fill="var(--wopr-accent)" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#wopr-grid-about)" />
+      </svg>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+      <h1 class="page-title-on-banner">About</h1>
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">
+        Professional IT support — repair, networking, data recovery, and remote support.
+      </p>
+    </div>
+  </section>
+
+  <div class="page-section max-w-2xl">
+    <p class="text-gray-600 leading-relaxed">
+      DaGint Computer Support provides IT support, computer repair, troubleshooting, networking, data recovery, and remote support for home users and small businesses. We focus on getting your systems running reliably so you can focus on your work.
+    </p>
+    <p class="text-gray-600 leading-relaxed mt-4">
+      Whether you need a one-off fix, ongoing maintenance, or help with security and updates, we tailor support to your needs. No lock-in — just clear communication and solid technical support.
+    </p>
+    <p class="mt-8">
+      <a href="/contact" class="text-sm font-medium text-[var(--wopr-accent)] hover:underline">Get in touch →</a>
+    </p>
+  </div>
+</Layout>

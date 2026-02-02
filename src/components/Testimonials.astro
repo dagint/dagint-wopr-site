@@ -1,0 +1,35 @@
+---
+const testimonials = [
+  {
+    quote: 'DaGint got my home network running smoothly and secured my devices. Professional and fast.',
+    author: 'Sarah M.',
+    role: 'Home office',
+  },
+  {
+    quote: 'Data recovery when I thought everything was lost. They recovered years of family photos.',
+    author: 'James T.',
+    role: 'Small business',
+  },
+  {
+    quote: 'Remote support saved me a trip. Fixed my PC in under an hour from my couch.',
+    author: 'Lisa K.',
+    role: 'Remote worker',
+  },
+];
+---
+
+<section class="py-16 bg-gray-50 dark:bg-primary/50" aria-label="Testimonials">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-mono text-2xl font-bold text-center text-primary dark:text-accent mb-10">What clients say</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonials.map((t) => (
+        <blockquote class="p-6 rounded-xl bg-white dark:bg-surface-light border border-gray-200 dark:border-secondary/50">
+          <p class="text-gray-700 dark:text-gray-300 italic">&ldquo;{t.quote}&rdquo;</p>
+          <footer class="mt-4 font-mono text-sm text-accent">
+            — {t.author} <span class="text-gray-500 dark:text-gray-400 font-sans">({t.role})</span>
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  </div>
+</section>

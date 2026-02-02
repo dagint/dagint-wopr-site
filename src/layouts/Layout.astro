@@ -1,0 +1,114 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title = 'DaGint Computer Support', description, image } = Astro.props;
+const site = Astro.site ?? 'https://dagint.com';
+const canonical = new URL(Astro.url.pathname, site);
+const metaDescription = description ?? 'Professional IT support — computer repair, networking, data recovery, remote support, and managed services. DaGint Computer Support.';
+const ogImage = image ?? new URL('/favicon.svg', site).toString();
+const serviceArea = import.meta.env.PUBLIC_SERVICE_AREA ?? '';
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'DaGint Computer Support',
+  url: site,
+  description: metaDescription,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    url: `${site}/contact`,
+    contactType: 'customer service',
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A2540" />
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical.toString()} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={`${title} | dagint.com`} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical.toString()} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={`${title} | dagint.com`} />
+    <meta name="twitter:description" content={metaDescription} />
+    <title>{title} | dagint.com</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="DaGint Blog" href={new URL('rss.xml', site)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
+    <slot name="head" />
+    <style is:global>
+      :root {
+        --wopr-primary: #0A2540;
+        --wopr-secondary: #1E40AF;
+        --wopr-accent: #60A5FA;
+        --wopr-header: #1e3a5f;
+        --wopr-accent-dim: rgba(96, 165, 250, 0.4);
+        --wopr-surface: #0f172a;
+        --wopr-bg: #f0f4f8;
+        --wopr-card: #f8fafc;
+      }
+      .skip-link {
+        position: absolute;
+        top: -3rem;
+        left: 0.5rem;
+        z-index: 100;
+        padding: 0.5rem 1rem;
+        background: var(--wopr-accent);
+        color: var(--wopr-primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 0.375rem;
+        transition: top 0.15s ease;
+      }
+      .skip-link:focus {
+        top: 0.5rem;
+        outline: 2px solid white;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col text-gray-800 font-sans antialiased bg-[var(--wopr-bg)] bg-gradient-to-b from-slate-50 via-[#eef2f7] to-slate-100">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="bg-[var(--wopr-header)] border-b border-white/10 sticky top-0 z-50 shrink-0">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
+        <a href="/" class="font-mono font-semibold text-white text-lg tracking-tight hover:text-[var(--wopr-accent)] transition-colors">DaGint</a>
+        <nav class="flex items-center gap-6" aria-label="Main">
+          {nav.map(({ href, label }) => (
+            <a href={href} class="text-sm font-medium text-blue-100 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2">{label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1" class="flex-1 flex flex-col">
+      <slot />
+    </main>
+    <footer class="bg-[var(--wopr-header)] border-t border-white/10 shrink-0">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-blue-100">
+        <span class="font-mono font-medium text-white">DaGint Computer Support</span>
+        <span>© {new Date().getFullYear()} dagint.com · IT support, repair, networking{serviceArea ? ` · Serving ${serviceArea}` : ''}</span>
+      </div>
+    </footer>
+  </body>
+</html>
