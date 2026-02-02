@@ -10,8 +10,10 @@ const blogCollection = defineCollection({
     published: z.boolean().default(true),
     /** Hero/feature image path from site root (e.g. /blog/hero-windows.jpg). Shown on list and post page. */
     image: z.string().optional(),
-    /** Optional icon path for list cards (e.g. /blog/icons/windows.svg). Falls back to image or default icon. */
+    /** Optional icon path for list cards (e.g. /blog/icons/windows.svg). Falls back to image or serviceIcon. */
     icon: z.string().optional(),
+    /** Icon for list cards when no image/icon: one of the 3 service icons (support, security, cloud). Default: support. */
+    serviceIcon: z.enum(['support', 'security', 'cloud']).optional(),
   }),
 });
 

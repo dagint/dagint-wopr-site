@@ -29,7 +29,7 @@ const blogLd = {
   </Fragment>
 
   <section class="page-banner flex items-end pb-8 sm:pb-10">
-    <div class="absolute inset-0 opacity-40" aria-hidden="true">
+    <div class="absolute inset-0 {entry.data.image ? 'opacity-50' : 'opacity-40'}" aria-hidden="true">
       {entry.data.image ? (
         <img src={entry.data.image} alt="" class="w-full h-full object-cover" />
       ) : (
@@ -43,11 +43,17 @@ const blogLd = {
         </svg>
       )}
     </div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[var(--wopr-header)]/95 via-[var(--wopr-header)]/60 to-transparent" aria-hidden="true" />
+    <!-- Dark overlay so white text stays readable: stronger when there's an image -->
+    <div
+      class="absolute inset-0 {entry.data.image
+        ? 'bg-gradient-to-t from-[var(--wopr-header)] via-[var(--wopr-header)]/85 to-[var(--wopr-header)]/70'
+        : 'bg-gradient-to-t from-[var(--wopr-header)]/95 via-[var(--wopr-header)]/60 to-transparent'}"
+      aria-hidden="true"
+    />
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
-      <h1 class="page-title-on-banner">{entry.data.title}</h1>
-      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">{entry.data.summary}</p>
-      <time class="block mt-3 text-xs text-blue-200" datetime={entry.data.date.toISOString()}>
+      <h1 class="page-title-on-banner drop-shadow-md">{entry.data.title}</h1>
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl drop-shadow-sm">{entry.data.summary}</p>
+      <time class="block mt-3 text-xs text-blue-200 drop-shadow-sm" datetime={entry.data.date.toISOString()}>
         {entry.data.date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
     </div>
