@@ -10,8 +10,9 @@ export default defineConfig({
   // Performance optimizations
   compressHTML: true,
   build: {
-    // Inline small stylesheets automatically to reduce render-blocking requests
-    inlineStylesheets: 'auto',
+    // Force inline all stylesheets to eliminate render-blocking CSS
+    // This improves LCP by removing CSS from critical request chain
+    inlineStylesheets: 'always',
     // Organize assets for better caching
     assets: '_assets',
   },

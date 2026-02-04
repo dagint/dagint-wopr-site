@@ -68,7 +68,7 @@ const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
                     {entry.data.title}
                   </h2>
                   <p class="text-gray-600 text-sm mt-1">{entry.data.summary}</p>
-                  <time class="text-xs text-gray-500 mt-2 block" datetime={entry.data.date.toISOString()}>
+                  <time class="text-xs text-gray-600 mt-2 block" datetime={entry.data.date.toISOString()}>
                     {entry.data.date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
                   </time>
                 </a>
@@ -86,10 +86,10 @@ const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
             ← Newer posts
           </a>
         ) : (
-          <span class="text-gray-400">← Newer posts</span>
+          <span class="text-gray-500">← Newer posts</span>
         )}
       </span>
-      <span class="text-gray-500">
+      <span class="text-gray-600">
         Page {currentPage} of {totalPages}
       </span>
       <span>
@@ -98,7 +98,7 @@ const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
             Older posts →
           </a>
         ) : (
-          <span class="text-gray-400">Older posts →</span>
+          <span class="text-gray-500">Older posts →</span>
         )}
       </span>
     </nav>
