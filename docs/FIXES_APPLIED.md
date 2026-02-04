@@ -104,5 +104,3 @@ This document outlines the fixes applied to address performance and accessibilit
 - The `inlineStylesheets: 'always'` setting will increase HTML file size, but this is acceptable for the performance benefit
 - All contrast fixes maintain the visual design while improving accessibility
 - CSP updates maintain security while allowing necessary third-party scripts
-- Link colors now use darker blue (#1E40AF) on light backgrounds for better contrast, while keeping lighter blue (#60A5FA) for dark backgrounds (header/footer)
-- Cache TTL for Cloudflare Analytics scripts is controlled by Cloudflare CDN and cannot be modified via headers (this is expected behavior)
