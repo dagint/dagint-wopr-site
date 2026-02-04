@@ -17,8 +17,35 @@ const blogLd = {
   headline: entry.data.title,
   description: entry.data.summary,
   datePublished: entry.data.date.toISOString(),
+  dateModified: entry.data.date.toISOString(),
   url: canonical.toString(),
-  ...(entry.data.image && { image: new URL(entry.data.image, site).toString() }),
+  author: {
+    '@type': 'Organization',
+    name: 'DaGint Computer Support',
+    url: site,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'DaGint Computer Support',
+    url: site,
+    logo: {
+      '@type': 'ImageObject',
+      url: new URL('/favicon.svg', site).toString(),
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical.toString(),
+  },
+  ...(entry.data.image && { 
+    image: {
+      '@type': 'ImageObject',
+      url: new URL(entry.data.image, site).toString(),
+    },
+  }),
+  ...(entry.data.tags && entry.data.tags.length > 0 && {
+    keywords: entry.data.tags.join(', '),
+  }),
 };
 ---
 
@@ -31,7 +58,14 @@ const blogLd = {
   <section class="page-banner flex items-end pb-8 sm:pb-10">
     <div class="absolute inset-0 {entry.data.image ? 'opacity-50' : 'opacity-40'}" aria-hidden="true">
       {entry.data.image ? (
-        <img src={entry.data.image} alt="" class="w-full h-full object-cover" />
+        <img 
+          src={entry.data.image} 
+          alt="" 
+          class="w-full h-full object-cover" 
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       ) : (
         <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>

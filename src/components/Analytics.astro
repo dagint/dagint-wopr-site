@@ -1,0 +1,21 @@
+---
+/**
+ * Cloudflare Web Analytics (privacy-friendly, free).
+ *
+ * Option A: Enable in Cloudflare Dashboard → Workers & Pages → [project] → Metrics → Web Analytics (no code needed).
+ * Option B: Set PUBLIC_ANALYTICS_PROVIDER=cloudflare and PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN to your token.
+ */
+
+const analyticsProvider = (import.meta.env.PUBLIC_ANALYTICS_PROVIDER || '').trim().toLowerCase();
+const cloudflareToken = (import.meta.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN || '').trim();
+const isCloudflareEnabled = analyticsProvider === 'cloudflare' && cloudflareToken.length > 0;
+const cfBeaconPayload = cloudflareToken ? JSON.stringify({ token: cloudflareToken }) : '';
+---
+
+{isCloudflareEnabled && (
+  <script
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={cfBeaconPayload}
+  />
+)}

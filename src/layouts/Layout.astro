@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@/components/Analytics.astro';
 
 interface Props {
   title?: string;
@@ -13,6 +14,8 @@ const canonical = new URL(Astro.url.pathname, site);
 const metaDescription = description ?? 'Professional IT support — computer repair, networking, data recovery, remote support, and managed services. DaGint Computer Support.';
 const ogImage = image ?? new URL('/favicon.svg', site).toString();
 const serviceArea = import.meta.env.PUBLIC_SERVICE_AREA ?? '';
+const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
+const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
 const nav = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
@@ -20,16 +23,113 @@ const nav = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
+
+// Enhanced schema markup
 const organizationLd = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'LocalBusiness',
+  '@id': `${site}#organization`,
   name: 'DaGint Computer Support',
   url: site,
   description: metaDescription,
-  contactPoint: {
-    '@type': 'ContactPoint',
-    url: `${site}/contact`,
-    contactType: 'customer service',
+  logo: `${site}/favicon.svg`,
+  image: ogImage,
+  ...(contactEmail && {
+    email: contactEmail,
+  }),
+  ...(contactPhone && {
+    telephone: contactPhone.replace(/\s/g, ''),
+  }),
+  ...(serviceArea && {
+    areaServed: {
+      '@type': 'City',
+      name: serviceArea,
+    },
+  }),
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'CT',
+    addressCountry: 'US',
+  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      url: `${site}/contact`,
+      ...(contactEmail && { email: contactEmail }),
+      ...(contactPhone && { telephone: contactPhone.replace(/\s/g, '') }),
+      availableLanguage: 'English',
+    },
+    {
+      '@type': 'ContactPoint',
+      contactType: 'technical support',
+      url: `${site}/contact`,
+      ...(contactEmail && { email: contactEmail }),
+      ...(contactPhone && { telephone: contactPhone.replace(/\s/g, '') }),
+      availableLanguage: 'English',
+    },
+  ],
+  sameAs: [],
+  priceRange: '$$',
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'IT Support Services',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Computer Repair',
+          description: 'Hardware and software diagnostics, virus removal, and repairs for PCs and Macs.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Remote Support',
+          description: 'Secure remote access to fix issues quickly—no on-site visit required.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Data Recovery',
+          description: 'Recovery from failed drives, accidental deletion, or corruption.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Networking',
+          description: 'Wi‑Fi, routers, and home or small-office networks—fast and reliable.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Managed Services',
+          description: 'Proactive monitoring, maintenance, and support so you can focus on your work.',
+        },
+      },
+    ],
   },
 };
 ---
@@ -53,10 +153,18 @@ const organizationLd = {
     <title>{title} | dagint.com</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="DaGint Blog" href={new URL('rss.xml', site)} />
+    {/* Performance: Preconnect to external domains */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+    {/* Performance: Preload critical fonts */}
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" as="style" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    {/* Enhanced Schema Markup */}
     <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
+    {/* Analytics */}
+    <Analytics />
     <slot name="head" />
     <style is:global>
       :root {
@@ -105,9 +213,14 @@ const organizationLd = {
       <slot />
     </main>
     <footer class="bg-[var(--wopr-header)] border-t border-white/10 shrink-0">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-blue-100">
-        <span class="font-mono font-medium text-white">DaGint Computer Support</span>
-        <span>© {new Date().getFullYear()} dagint.com · IT support, repair, networking{serviceArea ? ` · Serving ${serviceArea}` : ''}</span>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-blue-100">
+          <span class="font-mono font-medium text-white">DaGint Computer Support</span>
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <span>© {new Date().getFullYear()} dagint.com · IT support, repair, networking{serviceArea ? ` · Serving ${serviceArea}` : ''}</span>
+            <a href="/privacy" class="text-blue-100 hover:text-white transition-colors underline">Privacy Policy</a>
+          </div>
+        </div>
       </div>
     </footer>
   </body>
