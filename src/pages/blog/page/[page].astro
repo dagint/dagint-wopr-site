@@ -82,7 +82,7 @@ const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
     <nav class="mt-10 flex items-center justify-between gap-4 text-sm" aria-label="Blog pagination">
       <span>
         {hasPrev ? (
-          <a href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`} class="font-medium text-[var(--wopr-accent)] hover:underline">
+          <a href={currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`} class="font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">
             ← Newer posts
           </a>
         ) : (
@@ -94,7 +94,7 @@ const { posts, currentPage, totalPages, hasPrev, hasNext } = Astro.props;
       </span>
       <span>
         {hasNext ? (
-          <a href={`/blog/page/${currentPage + 1}`} class="font-medium text-[var(--wopr-accent)] hover:underline">
+          <a href={`/blog/page/${currentPage + 1}`} class="font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">
             Older posts →
           </a>
         ) : (
