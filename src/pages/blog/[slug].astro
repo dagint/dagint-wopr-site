@@ -87,7 +87,7 @@ const blogLd = {
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
       <h1 class="page-title-on-banner drop-shadow-md">{entry.data.title}</h1>
       <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl drop-shadow-sm">{entry.data.summary}</p>
-      <time class="block mt-3 text-xs text-blue-200 drop-shadow-sm" datetime={entry.data.date.toISOString()}>
+      <time class="block mt-3 text-xs text-blue-50 drop-shadow-sm" datetime={entry.data.date.toISOString()}>
         {entry.data.date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
       </time>
     </div>
@@ -99,7 +99,7 @@ const blogLd = {
     </article>
     <p class="mt-10">
       <a href="/blog" class="text-sm font-medium text-[var(--wopr-accent)] hover:underline">← Back to blog</a>
-      <span class="mx-2 text-gray-400">·</span>
+      <span class="mx-2 text-gray-500">·</span>
       <a href="/contact" class="text-sm font-medium text-[var(--wopr-accent)] hover:underline">Get in touch</a>
     </p>
   </div>
