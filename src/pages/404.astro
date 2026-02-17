@@ -4,16 +4,7 @@ import Layout from '@/layouts/Layout.astro';
 
 <Layout title="Page not found">
   <section class="page-banner flex items-end pb-8 sm:pb-10">
-    <div class="absolute inset-0 opacity-40" aria-hidden="true">
-      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="wopr-grid-404" width="32" height="32" patternUnits="userSpaceOnUse">
-            <circle cx="16" cy="16" r="2" fill="var(--wopr-accent)" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#wopr-grid-404)" />
-      </svg>
-    </div>
+    <div class="absolute inset-0 opacity-40 wopr-dot-grid" aria-hidden="true"></div>
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
       <h1 class="page-title-on-banner">404</h1>
       <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">

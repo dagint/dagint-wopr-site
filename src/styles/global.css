@@ -41,6 +41,10 @@
   font-weight: 700;
   color: var(--wopr-primary, #0a2540);
 }
+.wopr-dot-grid {
+  background-image: radial-gradient(circle, var(--wopr-accent) 2px, transparent 2px);
+  background-size: 32px 32px;
+}
 .card {
   background: var(--wopr-card, #f8fafc);
   border-radius: 0.5rem;
