@@ -36,24 +36,16 @@ This document outlines the performance optimizations implemented to address rend
 
 ## Runtime Optimizations
 
-### Font Loading Optimization
-- **Implementation**: Async font loading using `media="print"` trick
-- **Effect**: Loads Google Fonts asynchronously without blocking render
-- **Benefit**: Prevents font CSS from blocking initial page render
-- **Fallback**: Includes noscript tag for browsers without JavaScript
+### Self-Hosted Fonts
+- **Implementation**: Inter + JetBrains Mono woff2 files in `public/fonts/`, preloaded via `<link rel="preload">`
+- **Effect**: Eliminates external requests to Google Fonts (fonts.googleapis.com, fonts.gstatic.com)
+- **Benefit**: Faster font loading (served from same origin), tighter CSP, better privacy
 
 ### DNS Prefetch
-- **Enabled**: Prefetch for Cloudflare services and external resources
+- **Enabled**: Prefetch for Cloudflare services
 - **Resources**:
   - `static.cloudflareinsights.com` (analytics)
 - **Benefit**: Faster DNS resolution for external resources
-
-### Preconnect
-- **Enabled**: Preconnect to Google Fonts domains
-- **Resources**:
-  - `fonts.googleapis.com`
-  - `fonts.gstatic.com`
-- **Benefit**: Establishes early connections to font servers
 
 ### Image Optimization
 - **Hero Images**: `loading="eager"`, `fetchpriority="high"`, `decoding="async"`
@@ -105,9 +97,9 @@ This document outlines the performance optimizations implemented to address rend
 ✅ CSS inlining enabled (auto)  
 ✅ CSS minification enabled  
 ✅ CSS code splitting enabled  
-✅ Async font loading  
-✅ Image optimization attributes  
-✅ DNS prefetch and preconnect  
+✅ Self-hosted fonts (preloaded woff2)
+✅ Image optimization attributes
+✅ DNS prefetch
 ✅ Critical CSS variables inlined  
 
 ## Related Documentation

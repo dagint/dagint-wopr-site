@@ -58,10 +58,12 @@ const blogLd = {
   <section class="page-banner flex items-end pb-8 sm:pb-10">
     <div class="absolute inset-0 {entry.data.image ? 'opacity-50' : 'opacity-40'}" aria-hidden="true">
       {entry.data.image ? (
-        <img 
-          src={entry.data.image} 
-          alt="" 
-          class="w-full h-full object-cover" 
+        <img
+          src={entry.data.image}
+          alt=""
+          class="w-full h-full object-cover"
+          width="1200"
+          height="630"
           loading="eager"
           decoding="async"
           fetchpriority="high"
