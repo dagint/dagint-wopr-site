@@ -6,7 +6,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: document-domain=(), geolocation=(), microphone=(), camera=()
-  Content-Security-Policy: upgrade-insecure-requests; default-src 'self'; script-src 'self' https://static.cloudflareinsights.com 'sha256-LmEo+xwvJDXY9ejuCd84km05isUxrDzv7ST77/mFPJ4=' 'sha256-thJyuDNgBxffgkfdn2vgBa4gmVAjkzx43b5NNtNmGQo='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; form-action 'self' https://formspree.io; connect-src 'self' https://static.cloudflareinsights.com; base-uri 'self'; frame-ancestors 'none'
+  Content-Security-Policy: upgrade-insecure-requests; default-src 'self'; script-src 'self' https://static.cloudflareinsights.com 'sha256-LmEo+xwvJDXY9ejuCd84km05isUxrDzv7ST77/mFPJ4=' 'sha256-thJyuDNgBxffgkfdn2vgBa4gmVAjkzx43b5NNtNmGQo='; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; form-action 'self' https://formspree.io; connect-src 'self' https://static.cloudflareinsights.com https://cloudflareinsights.com; base-uri 'self'; frame-ancestors 'none'
   Cache-Control: public, max-age=3600, s-maxage=86400
 
 /_assets/*
