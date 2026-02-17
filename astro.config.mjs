@@ -7,6 +7,7 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), tailwind()],
   output: 'static',
   site: 'https://dagint.com',
+  trailingSlash: 'never',
   // Performance optimizations
   compressHTML: true,
   build: {
