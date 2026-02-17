@@ -44,9 +44,8 @@ This document outlines the performance optimizations implemented to address rend
 
 ### DNS Prefetch
 - **Enabled**: Prefetch for Cloudflare services and external resources
-- **Resources**: 
+- **Resources**:
   - `static.cloudflareinsights.com` (analytics)
-  - `challenges.cloudflare.com` (Turnstile)
 - **Benefit**: Faster DNS resolution for external resources
 
 ### Preconnect

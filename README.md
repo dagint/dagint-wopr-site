@@ -7,7 +7,7 @@ A modern, static website for DaGint Computer Support built with Astro, featuring
 - **Static Site Generation** - Fast, SEO-friendly static site built with Astro
 - **WOPR-Inspired Design** - Retro-futuristic aesthetic with blue accent colors and grid patterns
 - **Blog System** - MDX-based blog with pagination
-- **Contact Form** - Integrated contact form with Cloudflare Turnstile protection
+- **Contact Form** - Integrated contact form via Formspree
 - **Responsive Design** - Mobile-first design with Tailwind CSS
 - **RSS Feed** - Automatic RSS feed generation for blog posts
 - **Sitemap** - Auto-generated XML sitemap
@@ -81,7 +81,6 @@ Create a `.env.local` file (see `.env.example` for template):
 
 ```env
 PUBLIC_FORMSPREE_FORM_ID=your_formspree_form_id
-PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key
 PUBLIC_CONTACT_EMAIL=your_email@example.com
 PUBLIC_CONTACT_PHONE=your_phone_number
 PUBLIC_SERVICE_AREA=Your Service Area (optional)
@@ -155,7 +154,6 @@ Additional documentation is available in the `docs/` directory:
 
 - [Deployment Guide](docs/DEPLOYMENT.md) - Detailed deployment instructions
 - [Environment Variables & Secrets](docs/ENV_AND_SECRETS.md) - Environment setup
-- [Turnstile Setup](docs/TURNSTILE_SETUP.md) - Cloudflare Turnstile configuration
 - [Security Headers](docs/SECURITY_HEADERS.md) - Security configuration
 - [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
 

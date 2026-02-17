@@ -21,13 +21,12 @@ The CSP allows only the sources the site needs:
 | Directive | Allowed | Reason |
 |-----------|---------|--------|
 | **default-src** | `'self'` | Fallback for any directive not listed. |
-| **script-src** | `'self'`, `https://challenges.cloudflare.com`, `'unsafe-inline'` | Site JS, Turnstile script, contact page inline script (email/phone decode). |
+| **script-src** | `'self'`, `https://static.cloudflareinsights.com`, CSP hashes | Site JS, analytics, contact page inline script (email/phone decode). Uses SHA-256 hashes instead of `unsafe-inline`. |
 | **style-src** | `'self'`, `https://fonts.googleapis.com`, `'unsafe-inline'` | Site CSS, Google Fonts stylesheet, Layout inline styles. |
 | **font-src** | `'self'`, `https://fonts.gstatic.com` | Google Fonts. |
 | **img-src** | `'self'`, `data:` | Favicon, SVGs, and data URIs. |
-| **frame-src** | `https://challenges.cloudflare.com` | Turnstile widget iframe. |
 | **form-action** | `'self'`, `https://formspree.io` | Contact form POST. |
-| **connect-src** | `'self'`, `https://challenges.cloudflare.com` | Turnstile verification. |
+| **connect-src** | `'self'`, `https://static.cloudflareinsights.com` | Analytics. |
 | **base-uri** | `'self'` | Prevents base-tag injection. |
 | **frame-ancestors** | `'none'` | Same as X-Frame-Options: no embedding in iframes. |
 

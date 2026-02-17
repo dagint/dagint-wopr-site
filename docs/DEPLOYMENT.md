@@ -76,7 +76,6 @@ Go to **Settings** → **Environment variables** and add:
 | Variable | Value |
 |----------|-------|
 | `PUBLIC_FORMSPREE_FORM_ID` | Your Formspree form ID |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Your Turnstile site key |
 | `PUBLIC_CONTACT_EMAIL` | Your contact email |
 | `PUBLIC_CONTACT_PHONE` | Your contact phone |
 | `PUBLIC_SERVICE_AREA` | (Optional) Service area text |

@@ -27,7 +27,7 @@ No code changes needed; this is entirely external to the repo.
 
 - **Git:** The repo is the source of truth. Pushing to a remote (GitHub, GitLab, etc.) gives you history and a copy elsewhere. Ensure the remote is backed up per your org policy (e.g. secondary remote or backup tool).
 - **Cloudflare Pages:** Builds and deployments are tied to the connected repo. No extra backup step for “the site” beyond repo backup and env vars (see [ENV_AND_SECRETS.md](./ENV_AND_SECRETS.md)).
-- **Formspree / Turnstile:** Form submissions and Turnstile keys are managed in Formspree and Cloudflare. Export or back up any data you need from those dashboards; no backup is provided by this project.
+- **Formspree:** Form submissions are managed in Formspree. Export or back up any data you need from that dashboard; no backup is provided by this project.
 
 ## Testimonials
 

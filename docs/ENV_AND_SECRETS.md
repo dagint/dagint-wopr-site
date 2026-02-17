@@ -18,7 +18,6 @@ Sensitive and identifying values are **not** stored in the repo. They are provid
 | Variable | Description |
 |----------|-------------|
 | `PUBLIC_FORMSPREE_FORM_ID` | Your Formspree form ID (from the form URL). |
-| `PUBLIC_TURNSTILE_SITE_KEY` | Your Cloudflare Turnstile site key. |
 | `PUBLIC_CONTACT_EMAIL` | Email shown on the contact page (e.g. `info@dagint.com`). |
 | `PUBLIC_CONTACT_PHONE` | Phone shown on the contact page (e.g. `+15551234567`). |
 | `PUBLIC_SERVICE_AREA` | Optional. Service area line (e.g. “Sydney and surrounds” or “Greater Melbourne and remote”). Shown on homepage and footer. Leave unset to hide. |
@@ -27,17 +26,16 @@ Sensitive and identifying values are **not** stored in the repo. They are provid
 
 ## Variables used in the site
 
-- **Contact page** (`src/pages/contact.astro`): form action URL, Turnstile widget key, and obfuscated email/phone are read from these env vars at build time. If a variable is missing, the form uses a placeholder (e.g. test Turnstile key) or empty contact info.
+- **Contact page** (`src/pages/contact.astro`): form action URL and obfuscated email/phone are read from these env vars at build time. If a variable is missing, the form uses empty contact info.
 
 ## If sensitive data was already committed
 
-The repo no longer contains real Formspree IDs, Turnstile keys, or contact details in source. If you **previously** committed real values:
+The repo no longer contains real Formspree IDs or contact details in source. If you **previously** committed real values:
 
 1. **Rotate the secrets** (recommended, simplest):
    - Create a new Formspree form and use its ID in env.
-   - Create a new Turnstile key in the Cloudflare Turnstile dashboard and use it in env.
-   - No need to change email/phone unless you want to; they’re now only in env.
-   - Old commits still contain the old values, but they’re no longer in use.
+   - No need to change email/phone unless you want to; they're now only in env.
+   - Old commits still contain the old values, but they're no longer in use.
 
 2. **Remove from git history** (only if you must purge the old values from history):
    - Use [git filter-repo](https://github.com/newren/git-filter-repo) or [BFG Repo-Cleaner](https://rtyley.github.io/bfg-repo-cleaner/) to rewrite history and remove the sensitive strings.
