@@ -48,7 +48,7 @@ WOPR-themed palette using CSS variables (`--wopr-primary: #0A2540`, `--wopr-acce
 
 - **Formspree** — Contact form backend
 - **Cloudflare Web Analytics** — Optional, enabled via env var
-- **Google Fonts** — Inter + JetBrains Mono (async loaded)
+- **Fonts** — Inter + JetBrains Mono (self-hosted woff2 in `public/fonts/`)
 
 ## Environment Variables
 
@@ -62,6 +62,6 @@ Push to `main` triggers production deploy on Cloudflare Pages. Feature branches 
 
 - Components use PascalCase (`.astro`), pages use kebab-case with brackets for dynamic routes
 - CSS custom properties use `--wopr-*` prefix
-- Contact email/phone are base64-obfuscated in HTML, decoded client-side
+- Contact email/phone are rendered as plaintext (consistent with JSON-LD schema on every page)
 - Blog pagination is 10 posts per page
 - Accessibility: skip-to-content link, focus-visible outlines, ARIA labels, semantic HTML

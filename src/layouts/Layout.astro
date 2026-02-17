@@ -23,6 +23,7 @@ const nav = [
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 // Enhanced schema markup
 const organizationLd = {
@@ -153,29 +154,33 @@ const organizationLd = {
     <title>{title} | dagint.com</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" type="application/rss+xml" title="DaGint Blog" href={new URL('rss.xml', site)} />
-    {/* Performance: Preconnect to external domains */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com" />
-    {/* Performance: Load fonts asynchronously to prevent render blocking */}
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" /></noscript>
-    {/* Fallback for browsers that don't support onload on link tags */}
-    <script is:inline>
-      // Async font loading fallback
-      (function() {
-        const fontLink = document.querySelector('link[href*="fonts.googleapis.com"]');
-        if (fontLink && !fontLink.onload) {
-          fontLink.media = 'all';
-        }
-      })();
-    </script>
+    {/* Self-hosted fonts — eliminates external requests to Google Fonts */}
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     {/* Enhanced Schema Markup */}
     <script type="application/ld+json" set:html={JSON.stringify(organizationLd)} />
     {/* Analytics */}
     <Analytics />
     <slot name="head" />
     <style is:global>
+      /* Self-hosted font-face declarations (variable fonts) */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: swap;
+        src: url('/fonts/inter-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 500 600;
+        font-display: swap;
+        src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
       /* Critical CSS - inlined for immediate render */
       :root {
         --wopr-primary: #0A2540;
@@ -210,7 +215,7 @@ const organizationLd = {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
         -webkit-font-smoothing: antialiased;
         background: #f0f4f8;
         background-image: linear-gradient(to bottom, #f8fafc, #eef2f7, #f1f5f9);
@@ -231,9 +236,12 @@ const organizationLd = {
       <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
         <a href="/" class="font-mono font-semibold text-white text-lg tracking-tight hover:text-[var(--wopr-accent)] transition-colors">DaGint</a>
         <nav class="flex items-center gap-6" aria-label="Main">
-          {nav.map(({ href, label }) => (
-            <a href={href} class="text-sm font-medium text-blue-50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2">{label}</a>
-          ))}
+          {nav.map(({ href, label }) => {
+            const isActive = href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/');
+            return (
+              <a href={href} class="text-sm font-medium text-blue-50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2" aria-current={isActive ? 'page' : undefined}>{label}</a>
+            );
+          })}
         </nav>
       </div>
     </header>

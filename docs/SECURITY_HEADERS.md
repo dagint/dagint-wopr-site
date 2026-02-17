@@ -21,9 +21,9 @@ The CSP allows only the sources the site needs:
 | Directive | Allowed | Reason |
 |-----------|---------|--------|
 | **default-src** | `'self'` | Fallback for any directive not listed. |
-| **script-src** | `'self'`, `https://static.cloudflareinsights.com`, CSP hashes | Site JS, analytics, contact page inline script (email/phone decode). Uses SHA-256 hashes instead of `unsafe-inline`. |
-| **style-src** | `'self'`, `https://fonts.googleapis.com`, `'unsafe-inline'` | Site CSS, Google Fonts stylesheet, Layout inline styles. |
-| **font-src** | `'self'`, `https://fonts.gstatic.com` | Google Fonts. |
+| **script-src** | `'self'`, `https://static.cloudflareinsights.com` | Site JS, analytics. |
+| **style-src** | `'self'`, `'unsafe-inline'` | Site CSS, Layout inline styles. |
+| **font-src** | `'self'` | Self-hosted Inter + JetBrains Mono fonts. |
 | **img-src** | `'self'`, `data:` | Favicon, SVGs, and data URIs. |
 | **form-action** | `'self'`, `https://formspree.io` | Contact form POST. |
 | **connect-src** | `'self'`, `https://static.cloudflareinsights.com` | Analytics. |

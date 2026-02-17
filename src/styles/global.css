@@ -24,7 +24,7 @@
   font-size: 1.875rem;
   font-weight: 700;
   color: white;
-  font-family: ui-monospace, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
   letter-spacing: -0.025em;
 }
 .page-section {
