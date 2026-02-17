@@ -1,11 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-// Contact info and form config from env (set in Cloudflare Pages → Settings → Environment variables).
-// Obfuscated in output: base64 decoded in browser so scrapers don't see plain email/phone in HTML.
+// Contact info from env (set in Cloudflare Pages → Settings → Environment variables).
+// Rendered as plain text — email/phone are already public via JSON-LD schema on every page.
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
 const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
-const emailB64 = contactEmail ? Buffer.from(contactEmail, 'utf-8').toString('base64') : '';
-const phoneB64 = contactPhone ? Buffer.from(contactPhone.replace(/\s/g, ''), 'utf-8').toString('base64') : '';
 const formId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID ?? '';
 const formAction = formId ? `https://formspree.io/f/${formId}` : '#';
 const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thanks`;
@@ -40,14 +38,18 @@ const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thank
     <div class="card p-5 sm:p-6 mb-8 border-l-4 border-l-[var(--wopr-accent)]">
       <h2 class="text-sm font-semibold text-[var(--wopr-secondary)] uppercase tracking-wider mb-3">Contact information</h2>
       <dl class="space-y-3 text-sm">
-        <div>
-          <dt class="text-gray-600">Email</dt>
-          <dd><a id="contact-email" href="#" data-b={emailB64} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline break-all">Loading…</a></dd>
-        </div>
-        <div>
-          <dt class="text-gray-600">Phone</dt>
-          <dd><a id="contact-phone" href="#" data-b={phoneB64} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline">Loading…</a></dd>
-        </div>
+        {contactEmail && (
+          <div>
+            <dt class="text-gray-600">Email</dt>
+            <dd><a href={`mailto:${contactEmail}`} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline break-all">{contactEmail}</a></dd>
+          </div>
+        )}
+        {contactPhone && (
+          <div>
+            <dt class="text-gray-600">Phone</dt>
+            <dd><a href={`tel:${contactPhone.replace(/\s/g, '')}`} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline">{contactPhone}</a></dd>
+          </div>
+        )}
       </dl>
     </div>
 
@@ -75,14 +77,5 @@ const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thank
     </div>
   </div>
 
-  <script is:inline>
-    (function () {
-      try {
-        var e = document.getElementById('contact-email');
-        var p = document.getElementById('contact-phone');
-        if (e && e.dataset.b) { var em = atob(e.dataset.b); e.href = 'mailto:' + em; e.textContent = em; e.removeAttribute('data-b'); }
-        if (p && p.dataset.b) { var ph = atob(p.dataset.b); p.href = 'tel:' + ph.replace(/\D/g, ''); p.textContent = ph; p.removeAttribute('data-b'); }
-      } catch (_) {}
-    })();
-  </script>
+
 </Layout>

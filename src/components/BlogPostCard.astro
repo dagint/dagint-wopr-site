@@ -1,0 +1,47 @@
+---
+import BlogCardIcon from './BlogCardIcon.astro';
+
+interface Props {
+  slug: string;
+  title: string;
+  summary: string;
+  date: Date;
+  icon?: string;
+  image?: string;
+  serviceIcon?: 'support' | 'security' | 'cloud';
+}
+
+const { slug, title, summary, date, icon, image, serviceIcon } = Astro.props;
+const iconSrc = icon ?? image;
+const resolvedServiceIcon = serviceIcon ?? 'support';
+const useServiceIcon = serviceIcon != null || !iconSrc;
+---
+
+<li>
+  <article class="card p-5 border-l-4 border-l-[var(--wopr-accent)]/50 hover:border-l-[var(--wopr-accent)] transition-colors flex gap-4">
+    <a href={`/blog/${slug}`} class="flex-shrink-0 w-16 h-16 rounded-xl bg-[var(--wopr-primary)]/10 flex items-center justify-center group-hover:bg-[var(--wopr-accent)]/20 transition-colors" aria-hidden="true">
+      {useServiceIcon ? (
+        <BlogCardIcon name={resolvedServiceIcon} />
+      ) : (
+        <img
+          src={iconSrc}
+          alt=""
+          class="w-full h-full object-cover rounded-xl"
+          width="64"
+          height="64"
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+    </a>
+    <a href={`/blog/${slug}`} class="flex-1 min-w-0 group">
+      <h2 class="font-semibold text-[var(--wopr-primary)] text-lg group-hover:text-[var(--wopr-secondary)] transition-colors">
+        {title}
+      </h2>
+      <p class="text-gray-600 text-sm mt-1">{summary}</p>
+      <time class="text-xs text-gray-600 mt-2 block" datetime={date.toISOString()}>
+        {date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+    </a>
+  </article>
+</li>
