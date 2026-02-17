@@ -75,7 +75,6 @@ Cloudflare Pages → Settings → Builds & deployments → **Node version:**
 Make sure all required environment variables are set (even if empty):
 
 - `PUBLIC_FORMSPREE_FORM_ID`
-- `PUBLIC_TURNSTILE_SITE_KEY`
 - `PUBLIC_CONTACT_EMAIL`
 - `PUBLIC_CONTACT_PHONE`
 - `PUBLIC_SERVICE_AREA` (optional)

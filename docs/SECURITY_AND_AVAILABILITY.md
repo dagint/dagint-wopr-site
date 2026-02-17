@@ -10,26 +10,26 @@ This document summarizes the security posture of the DaGint site and how to keep
 
 - **Static site** (Astro `output: 'static'`): pre-built HTML, CSS, and JS. No server-side runtime, no database, no app server to patch or compromise.
 - **Hosting**: Cloudflare Pages (global CDN, TLS termination at the edge, DDoS mitigation as part of Cloudflare).
-- **Form handling**: Form submissions go to Formspree; bot protection via Cloudflare Turnstile. No form data is processed on your own infrastructure.
+- **Form handling**: Form submissions go to Formspree. No form data is processed on your own infrastructure.
 
 ### Strengths
 
 | Area | Detail |
 |------|--------|
-| **No secrets in repo** | Form IDs, Turnstile key, contact email/phone are in env vars (Cloudflare Pages → Settings → Environment variables). See [ENV_AND_SECRETS.md](./ENV_AND_SECRETS.md). |
+| **No secrets in repo** | Form IDs, contact email/phone are in env vars (Cloudflare Pages → Settings → Environment variables). See [ENV_AND_SECRETS.md](./ENV_AND_SECRETS.md). |
 | **Minimal attack surface** | No custom API, no server-side logic. Only static assets and a contact form that posts to Formspree. |
-| **Form security** | Turnstile reduces bots; Formspree validates and stores submissions. Honeypot field (`_gotcha`) helps catch simple bots. |
+| **Form security** | Formspree validates and stores submissions. Honeypot field (`_gotcha`) helps catch simple bots. |
 | **Contact data in HTML** | Email/phone are injected as base64 and decoded in the browser so they’re not plain text in the source for scrapers. |
 | **Security headers** | `public/_headers` sets X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy. See [SECURITY_HEADERS.md](./SECURITY_HEADERS.md). |
 | **Dependencies** | Small set (Astro, Tailwind, MDX, sitemap, RSS). Keep them updated (`npm update`, `npm audit`) before each release. |
 
 ### Things to maintain
 
-1. **Env vars in production**  
-   Ensure all required variables are set in Cloudflare Pages for Production (and Preview if used). Missing values fall back to placeholders (e.g. test Turnstile key) or empty strings.
+1. **Env vars in production**
+   Ensure all required variables are set in Cloudflare Pages for Production (and Preview if used). Missing values fall back to empty strings.
 
-2. **Formspree & Turnstile**  
-   - Use a real Formspree form ID and Turnstile **site** key in production; set the Turnstile **secret** key in Formspree (or wherever you verify Turnstile server-side) so submissions are validated.
+2. **Formspree**
+   - Use a real Formspree form ID in production.
    - In Formspree, turn on spam filtering and any rate limits you want.
 
 3. **Dependency updates**  
@@ -65,17 +65,16 @@ So the main causes of “unavailability” are: build/deploy failures, misconfig
 
 ### Checklist before go-live
 
-- [ ] All production env vars set in Cloudflare Pages (Formspree form ID, Turnstile site key, contact email/phone, optional service area).
-- [ ] Turnstile secret key configured in Formspree (or your form backend) so submissions are verified.
+- [ ] All production env vars set in Cloudflare Pages (Formspree form ID, contact email/phone, optional service area).
 - [ ] `public/_headers` present (security headers applied); optional HSTS enabled in Cloudflare.
 - [ ] Uptime monitor configured for `https://dagint.com` (and key pages if desired).
 - [ ] Repo backed up; env vars recorded somewhere safe.
 - [ ] `npm run build` succeeds locally; preview looks correct. **Tip:** On PowerShell, avoid typing `&&` (it’s not valid). Use `npm run build:preview` to build then preview in one step, or run `npm run build` and `npm run preview` separately (or use `;` instead of `&&`).
-- [ ] Contact form tested end-to-end (submit, Turnstile, redirect to thank-you page, Formspree receives submission).
+- [ ] Contact form tested end-to-end (submit, redirect to thank-you page, Formspree receives submission).
 
 ---
 
 ## Summary
 
-- **Security**: Static site, no secrets in repo, env-based config, Turnstile + Formspree for the form, security headers via `_headers`. Maintain env vars, dependencies, and optional CSP/HSTS.
+- **Security**: Static site, no secrets in repo, env-based config, Formspree for the form, security headers via `_headers`. Maintain env vars, dependencies, and optional CSP/HSTS.
 - **Availability**: Cloudflare’s CDN and edge reduce single-point-of-failure risk. Add uptime monitoring, follow Cloudflare/Formspree status, deploy from Git with successful builds only, and keep the repo and env vars backed up. That gives you a solid, production-ready posture and high availability for the DaGint site.
