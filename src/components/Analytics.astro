@@ -12,6 +12,8 @@ const isCloudflareEnabled = analyticsProvider === 'cloudflare' && cloudflareToke
 const cfBeaconPayload = cloudflareToken ? JSON.stringify({ token: cloudflareToken }) : '';
 ---
 
+{/* SRI omitted: Cloudflare updates beacon.min.js frequently; a pinned hash would silently break analytics.
+     The script is served from Cloudflare's own CDN which we already trust for hosting. */}
 {isCloudflareEnabled && (
   <script
     defer

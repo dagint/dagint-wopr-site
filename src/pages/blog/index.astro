@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import BlogCardIcon from '@/components/BlogCardIcon.astro';
+import BlogPostCard from '@/components/BlogPostCard.astro';
 import { getCollection } from 'astro:content';
 
 const PAGE_SIZE = 10;
@@ -37,41 +37,17 @@ const hasNext = totalPages > 1;
       <p class="text-gray-600">No posts yet. Check back soon.</p>
     ) : (
       <ul class="space-y-6">
-        {posts.map((entry) => {
-          const iconSrc = entry.data.icon ?? entry.data.image;
-          const serviceIcon = entry.data.serviceIcon ?? 'support';
-          const useServiceIcon = entry.data.serviceIcon != null || !iconSrc;
-          return (
-            <li>
-              <article class="card p-5 border-l-4 border-l-[var(--wopr-accent)]/50 hover:border-l-[var(--wopr-accent)] transition-colors flex gap-4">
-                <a href={`/blog/${entry.slug}`} class="flex-shrink-0 w-16 h-16 rounded-xl bg-[var(--wopr-primary)]/10 flex items-center justify-center group-hover:bg-[var(--wopr-accent)]/20 transition-colors" aria-hidden="true">
-                  {useServiceIcon ? (
-                    <BlogCardIcon name={serviceIcon} />
-                  ) : (
-                    <img 
-                      src={iconSrc!} 
-                      alt="" 
-                      class="w-full h-full object-cover rounded-xl" 
-                      width="64" 
-                      height="64" 
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
-                </a>
-                <a href={`/blog/${entry.slug}`} class="flex-1 min-w-0 group">
-                  <h2 class="font-semibold text-[var(--wopr-primary)] text-lg group-hover:text-[var(--wopr-secondary)] transition-colors">
-                    {entry.data.title}
-                  </h2>
-                  <p class="text-gray-600 text-sm mt-1">{entry.data.summary}</p>
-                  <time class="text-xs text-gray-600 mt-2 block" datetime={entry.data.date.toISOString()}>
-                    {entry.data.date.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
-                  </time>
-                </a>
-              </article>
-            </li>
-          );
-        })}
+        {posts.map((entry) => (
+          <BlogPostCard
+            slug={entry.slug}
+            title={entry.data.title}
+            summary={entry.data.summary}
+            date={entry.data.date}
+            icon={entry.data.icon}
+            image={entry.data.image}
+            serviceIcon={entry.data.serviceIcon}
+          />
+        ))}
       </ul>
     )}
 
