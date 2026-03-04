@@ -1,0 +1,117 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const relayHost = import.meta.env.PUBLIC_RUSTDESK_RELAY_HOST ?? '';
+const publicKey = import.meta.env.PUBLIC_RUSTDESK_KEY ?? '';
+const hasServerConfig = Boolean(relayHost && publicKey);
+
+// Point to latest release; update version when you want to pin
+const rdVersion = '1.4.5';
+const gh = (path: string) => `https://github.com/rustdesk/rustdesk/releases/download/${rdVersion}/${path}`;
+const releasesUrl = 'https://github.com/rustdesk/rustdesk/releases/latest';
+
+const downloads = [
+  { label: 'Windows (64-bit)', href: gh(`rustdesk-${rdVersion}-x86_64.exe`), desc: 'EXE — install or run portable' },
+  { label: 'macOS (Intel)', href: gh(`rustdesk-${rdVersion}-x86_64.dmg`), desc: 'DMG' },
+  { label: 'macOS (Apple Silicon)', href: gh(`rustdesk-${rdVersion}-aarch64.dmg`), desc: 'DMG' },
+  { label: 'Linux (Debian/Ubuntu 64-bit)', href: gh(`rustdesk-${rdVersion}-x86_64.deb`), desc: 'DEB' },
+];
+---
+
+<Layout
+  title="Remote support — RustDesk"
+  description="Download RustDesk for secure remote support with DaGint. Windows, macOS, and Linux."
+>
+  <section class="page-banner flex items-end pb-8 sm:pb-10">
+    <div class="absolute inset-0 opacity-40 wopr-dot-grid" aria-hidden="true"></div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
+      <h1 class="page-title-on-banner">Remote support</h1>
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">
+        Download RustDesk so we can connect securely to your computer for remote support. No account required.
+      </p>
+    </div>
+  </section>
+
+  <div class="page-section">
+    <div class="space-y-10">
+      <section>
+        <h2 class="text-lg font-mono font-semibold text-[var(--wopr-primary)] mb-4">Download</h2>
+        <p class="text-gray-600 text-sm mb-4">
+          Choose your operating system. After installing, run RustDesk and you’ll see a 9-digit ID—tell that to your technician so we can connect.
+        </p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {downloads.map((d) => (
+            <li>
+              <a
+                href={d.href}
+                class="card group flex items-center gap-4 p-4 border-l-4 border-l-[var(--wopr-accent)]/50 hover:border-l-[var(--wopr-accent)] hover:shadow-md transition-all duration-200"
+              >
+                <span class="font-medium text-[var(--wopr-primary)] group-hover:text-[var(--wopr-secondary)]">{d.label}</span>
+                <span class="text-xs text-gray-500">{d.desc}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-3 text-xs text-gray-500">
+          More options (32-bit, RPM, etc.): <a href={releasesUrl} class="text-[var(--wopr-secondary)] hover:underline">GitHub releases</a>. Version shown: {rdVersion}.
+        </p>
+      </section>
+
+      {hasServerConfig ? (
+        <section class="section-alt -mx-4 sm:-mx-6 px-4 sm:px-6 py-6 rounded-2xl">
+          <h2 class="text-lg font-mono font-semibold text-[var(--wopr-primary)] mb-2">Our server (use these settings)</h2>
+          <p class="text-gray-600 text-sm mb-4">
+            In RustDesk, open <strong>Settings → Network</strong>. Set <strong>ID server</strong> and <strong>Relay server</strong> to the address below, and <strong>Key</strong> to the key below.
+          </p>
+          <div class="space-y-2 font-mono text-sm">
+            <p><span class="text-gray-500">ID / Relay server:</span> <code class="bg-white/80 px-1.5 py-0.5 rounded">{relayHost}</code></p>
+            <p><span class="text-gray-500">Key:</span></p>
+            <pre class="bg-white/80 p-3 rounded overflow-x-auto text-xs break-all" id="rustdesk-key">{publicKey}</pre>
+            <button
+              type="button"
+              class="text-xs font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)]"
+              data-copy-target="rustdesk-key"
+            >
+              Copy key
+            </button>
+          </div>
+        </section>
+      ) : (
+        <section class="section-alt -mx-4 sm:-mx-6 px-4 sm:px-6 py-6 rounded-2xl">
+          <h2 class="text-lg font-mono font-semibold text-[var(--wopr-primary)] mb-2">Server settings</h2>
+          <p class="text-gray-600 text-sm">
+            Your technician will provide the server address and key when you connect. In RustDesk, go to <strong>Settings → Network</strong> to enter them if needed.
+          </p>
+        </section>
+      )}
+
+      <section>
+        <h2 class="text-lg font-mono font-semibold text-[var(--wopr-primary)] mb-3">Quick steps</h2>
+        <ol class="list-decimal list-inside space-y-2 text-gray-600 text-sm">
+          <li>Download and run RustDesk for your system.</li>
+          <li>Note the <strong>9-digit ID</strong> (and optional password) shown in the main window.</li>
+          <li>Tell your technician the ID (by phone, email, or chat).</li>
+          <li>When we request a connection, click <strong>Allow</strong> on your screen.</li>
+        </ol>
+        <p class="mt-4 text-gray-600 text-sm">
+          Need help? <a href="/contact" class="text-[var(--wopr-secondary)] font-medium hover:underline">Contact us</a>.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('[data-copy-target]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = (btn as HTMLButtonElement).getAttribute('data-copy-target');
+        const el = id ? document.getElementById(id) : null;
+        const text = el?.textContent?.trim();
+        if (text && navigator.clipboard?.writeText) {
+          navigator.clipboard.writeText(text);
+          (btn as HTMLButtonElement).textContent = 'Copied';
+          setTimeout(() => { (btn as HTMLButtonElement).textContent = 'Copy key'; }, 2000);
+        }
+      });
+    });
+  </script>
+</Layout>

@@ -79,8 +79,18 @@ Go to **Settings** → **Environment variables** and add:
 | `PUBLIC_CONTACT_EMAIL` | Your contact email |
 | `PUBLIC_CONTACT_PHONE` | Your contact phone |
 | `PUBLIC_SERVICE_AREA` | (Optional) Service area text |
+| `PUBLIC_RUSTDESK_RELAY_HOST` | (Optional) RustDesk server hostname for /rustdesk page, e.g. `rustdesk.dagint.com` |
+| `PUBLIC_RUSTDESK_KEY` | (Optional) RustDesk server public key (contents of `id_ed25519.pub`) for /rustdesk page |
 
 Set these for **Production** (and **Preview** if you use branch previews).
+
+### Optional: rustdesk.dagint.com subdomain
+
+To serve the RustDesk download page at **rustdesk.dagint.com**:
+
+1. In Cloudflare Pages → your project → **Custom domains** → **Set up a custom domain** → add `rustdesk.dagint.com`.
+2. In Cloudflare DNS, add a CNAME: `rustdesk` → `your-pages-project.pages.dev` (or use the proxy target Cloudflare suggests).
+3. To show only the RustDesk page at that subdomain, add a **Redirect rule** (Rules → Redirect rules): if hostname equals `rustdesk.dagint.com`, redirect to `https://dagint.com/rustdesk` (301). Otherwise the subdomain will show the full site; the main RustDesk content is at `/rustdesk`.
 
 ### 4. Deploy
 
