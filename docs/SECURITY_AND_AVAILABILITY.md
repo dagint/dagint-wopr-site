@@ -16,10 +16,10 @@ This document summarizes the security posture of the DaGint site and how to keep
 
 | Area | Detail |
 |------|--------|
-| **No secrets in repo** | Form IDs, contact email/phone are in env vars (Cloudflare Pages → Settings → Environment variables). See [ENV_AND_SECRETS.md](./ENV_AND_SECRETS.md). |
+| **No secrets in repo** | Form IDs and the contact email are in env vars (Cloudflare Pages → Settings → Environment variables). See [ENV_AND_SECRETS.md](./ENV_AND_SECRETS.md). |
 | **Minimal attack surface** | No custom API, no server-side logic. Only static assets and a contact form that posts to Formspree. |
 | **Form security** | Formspree validates and stores submissions. Honeypot field (`_gotcha`) helps catch simple bots. |
-| **Contact data in HTML** | Email/phone are injected as base64 and decoded in the browser so they’re not plain text in the source for scrapers. |
+| **Contact data in HTML** | The email is rendered as plain text (it is already public via the JSON-LD schema). No phone number is published; support is email-only. |
 | **Security headers** | `public/_headers` sets X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy. See [SECURITY_HEADERS.md](./SECURITY_HEADERS.md). |
 | **Dependencies** | Small set (Astro, Tailwind, MDX, sitemap, RSS). Keep them updated (`npm update`, `npm audit`) before each release. |
 
@@ -65,7 +65,7 @@ So the main causes of “unavailability” are: build/deploy failures, misconfig
 
 ### Checklist before go-live
 
-- [ ] All production env vars set in Cloudflare Pages (Formspree form ID, contact email/phone, optional service area).
+- [ ] All production env vars set in Cloudflare Pages (Formspree form ID, contact email, optional service area).
 - [ ] `public/_headers` present (security headers applied); optional HSTS enabled in Cloudflare.
 - [ ] Uptime monitor configured for `https://dagint.com` (and key pages if desired).
 - [ ] Repo backed up; env vars recorded somewhere safe.

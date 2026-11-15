@@ -77,7 +77,6 @@ Go to **Settings** → **Environment variables** and add:
 |----------|-------|
 | `PUBLIC_FORMSPREE_FORM_ID` | Your Formspree form ID |
 | `PUBLIC_CONTACT_EMAIL` | Your contact email |
-| `PUBLIC_CONTACT_PHONE` | Your contact phone |
 | `PUBLIC_SERVICE_AREA` | (Optional) Service area text |
 | `PUBLIC_RUSTDESK_RELAY_HOST` | (Optional) RustDesk server hostname for /rustdesk page, e.g. `rustdesk.dagint.com` |
 | `PUBLIC_RUSTDESK_KEY` | (Optional) RustDesk server public key (contents of `id_ed25519.pub`) for /rustdesk page |

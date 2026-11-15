@@ -62,6 +62,6 @@ Push to `main` triggers production deploy on Cloudflare Pages. Feature branches 
 
 - Components use PascalCase (`.astro`), pages use kebab-case with brackets for dynamic routes
 - CSS custom properties use `--wopr-*` prefix
-- Contact email/phone are rendered as plaintext (consistent with JSON-LD schema on every page)
+- The contact email is rendered as plaintext (consistent with JSON-LD schema on every page). Support is email-only: do not add a phone number, phone link or phone field to any page or the JSON-LD schema
 - Blog pagination is 10 posts per page
 - Accessibility: skip-to-content link, focus-visible outlines, ARIA labels, semantic HTML

@@ -1,9 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 // Contact info from env (set in Cloudflare Pages → Settings → Environment variables).
-// Rendered as plain text — email/phone are already public via JSON-LD schema on every page.
+// Rendered as plain text — the email is already public via JSON-LD schema on every page.
+// Support requests are email-only (direct email or the form below, which Formspree delivers by email).
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
-const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
 const formId = import.meta.env.PUBLIC_FORMSPREE_FORM_ID ?? '';
 const formAction = formId ? `https://formspree.io/f/${formId}` : '#';
 const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thanks`;
@@ -15,7 +15,7 @@ const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thank
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
       <h1 class="page-title-on-banner">Contact</h1>
       <p class="mt-2 text-white/95 text-sm sm:text-base max-w-xl">
-        Reach out for a quote or to schedule support. We’ll get back to you promptly.
+        Support requests are handled by email. Email us directly or use the form below.
       </p>
     </div>
   </section>
@@ -33,12 +33,6 @@ const thanksUrl = `${import.meta.env.SITE ?? 'https://dagint.com'}/contact/thank
           <div>
             <dt class="text-gray-600">Email</dt>
             <dd><a href={`mailto:${contactEmail}`} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline break-all">{contactEmail}</a></dd>
-          </div>
-        )}
-        {contactPhone && (
-          <div>
-            <dt class="text-gray-600">Phone</dt>
-            <dd><a href={`tel:${contactPhone.replace(/\s/g, '')}`} class="text-[var(--wopr-secondary)] font-medium hover:text-[var(--wopr-primary)] hover:underline">{contactPhone}</a></dd>
           </div>
         )}
       </dl>

@@ -82,7 +82,6 @@ Create a `.env.local` file (see `.env.example` for template):
 ```env
 PUBLIC_FORMSPREE_FORM_ID=your_formspree_form_id
 PUBLIC_CONTACT_EMAIL=your_email@example.com
-PUBLIC_CONTACT_PHONE=your_phone_number
 PUBLIC_SERVICE_AREA=Your Service Area (optional)
 ```
 

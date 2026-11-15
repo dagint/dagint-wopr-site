@@ -76,7 +76,6 @@ Make sure all required environment variables are set (even if empty):
 
 - `PUBLIC_FORMSPREE_FORM_ID`
 - `PUBLIC_CONTACT_EMAIL`
-- `PUBLIC_CONTACT_PHONE`
 - `PUBLIC_SERVICE_AREA` (optional)
 
 Missing variables won't cause "Hello World", but they can cause build issues.
