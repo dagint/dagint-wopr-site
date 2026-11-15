@@ -4,7 +4,6 @@ import Layout from '@/layouts/Layout.astro';
 const siteURL = Astro.site || 'https://dagint.com';
 const currentDate = 'February 17, 2026';
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
-const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
 ---
 
 <Layout title="Privacy Policy" description="Privacy policy for DaGint Computer Support website">
@@ -165,11 +164,6 @@ const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
           {contactEmail && (
             <p class="text-gray-600 text-sm mb-1">
               Email: <a href={`mailto:${contactEmail}`} class="text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">{contactEmail}</a>
-            </p>
-          )}
-          {contactPhone && (
-            <p class="text-gray-600 text-sm mb-1">
-              Phone: <a href={`tel:${contactPhone.replace(/\s/g, '')}`} class="text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">{contactPhone}</a>
             </p>
           )}
           <p class="text-gray-600 text-sm">

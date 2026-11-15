@@ -15,7 +15,6 @@ const metaDescription = description ?? 'Professional IT support — computer rep
 const ogImage = image ?? new URL('/favicon.svg', site).toString();
 const serviceArea = import.meta.env.PUBLIC_SERVICE_AREA ?? '';
 const contactEmail = import.meta.env.PUBLIC_CONTACT_EMAIL ?? '';
-const contactPhone = import.meta.env.PUBLIC_CONTACT_PHONE ?? '';
 const nav = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
@@ -39,9 +38,6 @@ const organizationLd = {
   ...(contactEmail && {
     email: contactEmail,
   }),
-  ...(contactPhone && {
-    telephone: contactPhone.replace(/\s/g, ''),
-  }),
   ...(serviceArea && {
     areaServed: {
       '@type': 'City',
@@ -59,7 +55,6 @@ const organizationLd = {
       contactType: 'customer service',
       url: `${site}/contact`,
       ...(contactEmail && { email: contactEmail }),
-      ...(contactPhone && { telephone: contactPhone.replace(/\s/g, '') }),
       availableLanguage: 'English',
     },
     {
@@ -67,7 +62,6 @@ const organizationLd = {
       contactType: 'technical support',
       url: `${site}/contact`,
       ...(contactEmail && { email: contactEmail }),
-      ...(contactPhone && { telephone: contactPhone.replace(/\s/g, '') }),
       availableLanguage: 'English',
     },
   ],
