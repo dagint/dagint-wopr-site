@@ -6,9 +6,10 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
-const { title = 'DaGint Computer Support', description, image } = Astro.props;
+const { title = 'DaGint Computer Support', description, image, noindex = false } = Astro.props;
 const site = Astro.site ?? 'https://dagint.com';
 const canonical = new URL(Astro.url.pathname, site);
 const metaDescription = description ?? 'Professional IT support — computer repair, networking, data recovery, remote support, and managed services. DaGint Computer Support.';
@@ -67,20 +68,6 @@ const organizationLd = {
   ],
   sameAs: [],
   priceRange: '$$',
-  openingHoursSpecification: {
-    '@type': 'OpeningHoursSpecification',
-    dayOfWeek: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-    opens: '00:00',
-    closes: '23:59',
-  },
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'IT Support Services',
@@ -138,6 +125,7 @@ const organizationLd = {
     <meta name="theme-color" content="#0A2540" />
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical.toString()} />
+    {noindex && <meta name="robots" content="noindex" />}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={`${title} | dagint.com`} />
     <meta property="og:description" content={metaDescription} />
@@ -275,6 +263,7 @@ const organizationLd = {
         var menu = document.getElementById('mobile-menu');
         var open = document.getElementById('menu-icon-open');
         var close = document.getElementById('menu-icon-close');
+        if (!btn || !menu || !open || !close) return;
         btn.addEventListener('click', function() {
           var expanded = btn.getAttribute('aria-expanded') === 'true';
           btn.setAttribute('aria-expanded', String(!expanded));

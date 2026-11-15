@@ -4,7 +4,14 @@ import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [
+    mdx(),
+    sitemap({
+      // Keep utility and duplicate pages out of the sitemap (/blog/page/1 duplicates /blog).
+      filter: (page) => !/\/(contact\/thanks|404|500|blog\/page\/1)\/?$/.test(page),
+    }),
+    tailwind(),
+  ],
   output: 'static',
   site: 'https://dagint.com',
   trailingSlash: 'never',
@@ -16,6 +23,9 @@ export default defineConfig({
     inlineStylesheets: 'always',
     // Organize assets for better caching
     assets: '_assets',
+    // Emit /contact.html rather than /contact/index.html so Cloudflare Pages serves /contact
+    // directly, matching trailingSlash: 'never' and the canonical URLs (no 308 to /contact/).
+    format: 'file',
   },
   vite: {
     build: {
