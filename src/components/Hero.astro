@@ -1,8 +1,8 @@
 ---
-// WOPR-inspired hero: cool blue palette, typing effect, glowing edges
+// Terminal display with a decorative cursor; page copy stays unchanged.
 ---
 
-<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+<section class="terminal-screen terminal-hero relative min-h-[70vh] flex items-center justify-center overflow-hidden">
   <!-- Background: WOPR-style grid + optional hero image (add public/hero.webp for custom WOPR image) -->
   <div class="absolute inset-0 bg-primary">
     <img
@@ -29,7 +29,7 @@
 
   <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <h1 class="font-mono text-3xl sm:text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
-      <span class="inline-block text-accent typing-caret" style="animation: typing-caret 1s step-end infinite;">SHALL WE PLAY A GAME?</span>
+      <span class="inline-block text-accent">SHALL WE PLAY A GAME?</span><span class="terminal-cursor" aria-hidden="true">▋</span>
     </h1>
     <p class="mt-4 font-sans text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto">
       …with your tech problems? <span class="text-accent font-semibold">DaGint</span> has you covered.

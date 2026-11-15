@@ -90,3 +90,89 @@
 .blog-post.prose a:hover {
   text-decoration: underline;
 }
+
+/* Phosphor is confined to display surfaces so long-form copy stays easy to read. */
+:root {
+  --phosphor: #a0efad;
+  --phosphor-dim: #547e5c;
+  --terminal-bg: #0b1913;
+}
+:root[data-phosphor='amber'] {
+  --phosphor: #ffd18a;
+  --phosphor-dim: #8a7047;
+  --terminal-bg: #1c160c;
+}
+.terminal-screen,
+.page-banner {
+  position: relative;
+  isolation: isolate;
+  background: var(--terminal-bg);
+  color: var(--phosphor);
+  box-shadow: inset 0 0 48px #0005;
+}
+header.terminal-screen { position: sticky; }
+.terminal-screen::after,
+.page-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(transparent 0 3px, #0002 3px 4px);
+}
+.terminal-screen a,
+.terminal-screen h1,
+.page-title-on-banner {
+  color: var(--phosphor);
+  text-shadow: 0 0 12px var(--phosphor-dim);
+}
+.terminal-hero > div:first-child { opacity: 0.12; }
+.terminal-hero .text-accent { color: var(--phosphor); }
+.terminal-hero a {
+  border: 1px solid var(--phosphor-dim);
+  background: var(--terminal-bg);
+}
+.terminal-cursor {
+  display: inline-block;
+  color: var(--phosphor);
+  animation: terminal-blink 1.2s step-end 4;
+}
+@keyframes terminal-blink { 50% { opacity: 0; } }
+.terminal-controls {
+  padding: 0.6rem 1rem;
+  background: var(--terminal-bg);
+  color: var(--phosphor);
+  font: 0.75rem 'JetBrains Mono', ui-monospace, monospace;
+  border-bottom: 1px solid var(--phosphor-dim);
+}
+.terminal-controls select,
+.terminal-controls button,
+.boot-intro button {
+  color: var(--phosphor);
+  background: var(--terminal-bg);
+  border: 1px solid var(--phosphor-dim);
+  border-radius: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  margin: 0.25rem;
+}
+.boot-intro {
+  padding: 1rem;
+  font: 0.875rem/1.8 'JetBrains Mono', ui-monospace, monospace;
+}
+.boot-output p { animation: terminal-line 0.4s both; }
+.boot-output p:nth-child(2) { animation-delay: 0.6s; }
+.boot-output p:nth-child(3) { animation-delay: 1.2s; }
+.boot-output p:nth-child(4) { animation-delay: 1.8s; }
+@keyframes terminal-line { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .terminal-cursor,
+  .boot-output p { animation: none; }
+  .skip-link { transition: none; }
+}
+@media (forced-colors: active) {
+  .terminal-screen::after,
+  .page-banner::after { display: none; }
+  .terminal-screen a,
+  .terminal-screen h1,
+  .page-title-on-banner { text-shadow: none; }
+}
