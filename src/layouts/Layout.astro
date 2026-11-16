@@ -124,6 +124,8 @@ const organizationLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b1913" />
     <script is:inline src="/scripts/terminal.js" defer></script>
+    {/* Without JS the mobile menu is shown open and its toggle hidden; with JS it starts closed, so there is no flash before the deferred script runs. */}
+    <noscript><style>@media (max-width: 639px) { #mobile-menu { display: block !important; } #mobile-menu-btn { display: none !important; } }</style></noscript>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical.toString()} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -235,7 +237,6 @@ const organizationLd = {
         {/* Mobile menu button */}
         <button
           id="mobile-menu-btn"
-          hidden
           type="button"
           class="sm:hidden p-2 -mr-2 text-blue-50 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
           aria-expanded="false"
@@ -247,7 +248,7 @@ const organizationLd = {
         </button>
       </div>
       {/* Mobile nav */}
-      <nav id="mobile-menu" class="sm:hidden border-t border-white/10" aria-label="Mobile">
+      <nav id="mobile-menu" class="sm:hidden hidden border-t border-white/10" aria-label="Mobile">
         <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1">
           {nav.map(({ href, label }) => {
             const isActive = href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(href + '/');

@@ -2,10 +2,6 @@
 (() => {
   const button = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
-  if (button && menu) {
-    menu.classList.add('hidden');
-    button.hidden = false;
-  }
   button?.addEventListener('click', () => {
     const expanded = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!expanded));
