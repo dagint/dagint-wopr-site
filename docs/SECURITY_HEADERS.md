@@ -6,6 +6,7 @@ The site sends HTTP security headers via a `_headers` file in `public/`. Cloudfl
 
 | Header | Purpose |
 |--------|--------|
+| **Strict-Transport-Security: max-age=31536000; includeSubDomains** | Browsers use HTTPS only for one year, for this host and every subdomain. |
 | **X-Frame-Options: DENY** | Stops the site from being embedded in iframes (reduces clickjacking risk). |
 | **X-Content-Type-Options: nosniff** | Stops browsers from guessing MIME types (reduces XSS/confusion). |
 | **Referrer-Policy: strict-origin-when-cross-origin** | Limits referrer data sent to other sites. |
@@ -30,17 +31,13 @@ The CSP allows only the sources the site needs:
 | **base-uri** | `'self'` | Prevents base-tag injection. |
 | **frame-ancestors** | `'none'` | Same as X-Frame-Options: no embedding in iframes. |
 
+`script-src` has no `'unsafe-inline'` and no hashes, so **no inline script runs**. Write page scripts as plain Astro `<script>` blocks (bundled to `/_assets/*.js`), never `is:inline`; `astro.config.mjs` sets `vite.build.assetsInlineLimit: 0` so Astro never inlines a small one either. JSON-LD (`type="application/ld+json"`) is data and is unaffected.
+
 If you add new third-party scripts or styles, update the CSP in `public/_headers` (or via Cloudflare Transform Rules) so those origins are allowed; otherwise the browser will block them.
 
-## Optional: HSTS
+## HSTS
 
-Cloudflare can add **Strict-Transport-Security (HSTS)** for you:
-
-1. Dashboard → **SSL/TLS** → **Edge Certificates**.
-2. Enable **Always Use HTTPS**.
-3. Under **HSTS**, enable **Strict Transport Security (HSTS)** and set a suitable max-age (e.g. 12 months).
-
-Then all requests to your domain are forced over HTTPS and browsers remember that.
+`public/_headers` sends `Strict-Transport-Security: max-age=31536000; includeSubDomains`. Before relying on it, every subdomain must serve HTTPS: browsers that have seen the header refuse plain HTTP to any of them for a year. If Cloudflare's dashboard HSTS setting is also on, keep the two values the same. `preload` is deliberately not set.
 
 ## Optional: Headers via Transform Rules
 

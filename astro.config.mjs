@@ -25,6 +25,9 @@ export default defineConfig({
       minify: 'esbuild',
       // Enable CSS code splitting
       cssCodeSplit: true,
+      // Never inline small scripts: public/_headers' CSP has no 'unsafe-inline' or
+      // hashes, so an inlined script is blocked. (Also stops tiny images becoming data: URIs.)
+      assetsInlineLimit: 0,
     },
   },
 });
