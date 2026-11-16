@@ -6,7 +6,7 @@ The site sends HTTP security headers via a `_headers` file in `public/`. Cloudfl
 
 | Header | Purpose |
 |--------|--------|
-| **Strict-Transport-Security: max-age=31536000; includeSubDomains** | Browsers use HTTPS only for one year, for this host and every subdomain. |
+| **Strict-Transport-Security: max-age=31536000** | Browsers use HTTPS only for one year, for dagint.com itself (subdomains are not included). |
 | **X-Frame-Options: DENY** | Stops the site from being embedded in iframes (reduces clickjacking risk). |
 | **X-Content-Type-Options: nosniff** | Stops browsers from guessing MIME types (reduces XSS/confusion). |
 | **Referrer-Policy: strict-origin-when-cross-origin** | Limits referrer data sent to other sites. |
@@ -37,7 +37,7 @@ If you add new third-party scripts or styles, update the CSP in `public/_headers
 
 ## HSTS
 
-`public/_headers` sends `Strict-Transport-Security: max-age=31536000; includeSubDomains`. Before relying on it, every subdomain must serve HTTPS: browsers that have seen the header refuse plain HTTP to any of them for a year. If Cloudflare's dashboard HSTS setting is also on, keep the two values the same. `preload` is deliberately not set.
+`public/_headers` sends `Strict-Transport-Security: max-age=31536000`, deliberately without `includeSubDomains` (2026-11-16): adding it would force HTTPS on every dagint.com subdomain for a year, so only add it after confirming each one serves HTTPS. If Cloudflare's dashboard HSTS setting is also on, keep the two values the same. `preload` is deliberately not set.
 
 ## Optional: Headers via Transform Rules
 
