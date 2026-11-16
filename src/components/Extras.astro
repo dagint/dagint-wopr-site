@@ -1,23 +1,10 @@
 ---
-// Footer "terminal mode" toggle plus a hidden key sequence (up up down down left right left right b a)
-// that flashes every lamp panel. Bundled script (CSP: script-src 'self'); everything is optional.
+// Hidden key sequence (up up down down left right left right b a) that flashes every lamp
+// panel. Bundled script (CSP: script-src 'self'). The terminal look itself is now the default
+// theme (html.terminal-mode in Layout), so there is no toggle.
 ---
-<button type="button" id="terminal-mode-toggle" class="font-mono text-xs text-blue-50 hover:text-white underline" aria-pressed="false">Terminal mode</button>
-
 <script>
   const root = document.documentElement;
-  const btn = document.getElementById('terminal-mode-toggle');
-  const apply = (on: boolean) => {
-    root.classList.toggle('terminal-mode', on);
-    btn?.setAttribute('aria-pressed', String(on));
-  };
-  try { apply(localStorage.getItem('dg-terminal-mode') === '1'); } catch (_) { apply(false); }
-  btn?.addEventListener('click', () => {
-    const on = !root.classList.contains('terminal-mode');
-    apply(on);
-    try { localStorage.setItem('dg-terminal-mode', on ? '1' : '0'); } catch (_) {}
-  });
-
   const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   let pos = 0;
   window.addEventListener('keydown', (e) => {
