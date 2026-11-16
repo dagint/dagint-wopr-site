@@ -120,7 +120,7 @@ const organizationLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="terminal-mode">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -285,10 +285,10 @@ const organizationLd = {
           <div class="flex flex-wrap items-center justify-center gap-4">
             <span>© {new Date().getFullYear()} dagint.com · IT support, repair, networking{serviceArea ? ` · Serving ${serviceArea}` : ''}</span>
             <a href="/privacy" class="text-blue-50 hover:text-white transition-colors underline">Privacy Policy</a>
-            <Extras />
           </div>
         </div>
       </div>
     </footer>
+    <Extras />
   </body>
 </html>

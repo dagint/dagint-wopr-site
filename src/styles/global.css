@@ -151,13 +151,46 @@
 .lamps-flash .lamp-panel { animation: lamps-flash 1.2s ease-out; }
 @keyframes lamps-flash { 0%, 60% { filter: brightness(2.2) saturate(1.3); } 100% { filter: none; } }
 
-/* Terminal mode: blue-on-black monospace across the site. */
-.terminal-mode body { background: #030b16 !important; color: #bfdbfe; font-family: ui-monospace, 'JetBrains Mono', monospace; }
+/* Terminal look: the site's only theme since 2026-11-16 (html.terminal-mode is set in Layout).
+   Palette: page #030b16, surface #071426, text #c7dcf7, muted #8fb3e0, headings #a5c8ff,
+   links #7cc0ff; filled buttons are light blue with dark text. Kept explicit so no text can
+   end up the same colour as its background. */
+.terminal-mode body { background: #030b16 !important; color: #c7dcf7; font-family: ui-monospace, 'JetBrains Mono', monospace; }
 .terminal-mode .card, .terminal-mode .section-alt { background: #071426 !important; border-color: rgba(96, 165, 250, 0.3) !important; }
-.terminal-mode h1, .terminal-mode h2, .terminal-mode h3, .terminal-mode .text-gray-900, .terminal-mode [class*="text-[var(--wopr-primary)]"] { color: #93c5fd !important; }
-.terminal-mode p, .terminal-mode li, .terminal-mode .text-gray-600, .terminal-mode .text-gray-700, .terminal-mode .text-gray-800 { color: #bfdbfe !important; }
-.terminal-mode a { color: #60a5fa; }
-.terminal-mode .prose { --tw-prose-body: #bfdbfe; --tw-prose-headings: #93c5fd; --tw-prose-links: #60a5fa; --tw-prose-bold: #e0f2fe; }
+.terminal-mode h1, .terminal-mode h2, .terminal-mode h3, .terminal-mode h4, .terminal-mode .text-gray-900,
+.terminal-mode [class*="text-[var(--wopr-primary)]"]:not([class*="bg-"]) { color: #a5c8ff !important; }
+.terminal-mode p, .terminal-mode li, .terminal-mode label, .terminal-mode .text-gray-600, .terminal-mode .text-gray-700, .terminal-mode .text-gray-800 { color: #c7dcf7 !important; }
+.terminal-mode .text-gray-500, .terminal-mode .text-gray-400, .terminal-mode time { color: #8fb3e0 !important; }
+/* Text links (anything without its own background) */
+.terminal-mode a:not([class*="bg-"]) { color: #7cc0ff; }
+.terminal-mode a:not([class*="bg-"]):hover { color: #bfdbfe; }
+/* Filled buttons: light blue, dark text, whatever their original colour */
+.terminal-mode a[class*="bg-[var(--wopr-primary)]"]:not([class*="/"]),
+.terminal-mode a[class*="bg-[var(--wopr-secondary)]"]:not([class*="/"]),
+.terminal-mode a[class*="bg-accent"]:not([class*="/"]),
+.terminal-mode a[class*="bg-white"]:not([class*="/"]),
+.terminal-mode button[class*="bg-[var(--wopr-primary)]"],
+.terminal-mode button[class*="bg-[var(--wopr-secondary)]"],
+.terminal-mode button[type="submit"] { background: #60a5fa !important; color: #031021 !important; border-color: #60a5fa !important; }
+.terminal-mode a[class*="bg-[var(--wopr-primary)]"]:hover, .terminal-mode a[class*="bg-accent"]:hover, .terminal-mode button[type="submit"]:hover { background: #93c5fd !important; }
+/* Secondary-blue text (labels like "Email us →") is dark on dark: lift it to the link colour */
+.terminal-mode [class*="text-[var(--wopr-secondary)]"]:not([class*="bg-"]), .terminal-mode [class*="text-[var(--wopr-accent)]"]:not([class*="bg-"]) { color: #7cc0ff !important; }
+.terminal-mode a.skip-link { color: #031021 !important; }
+/* Tinted chips/icon wells stay subtle on dark */
+.terminal-mode [class*="bg-[var(--wopr-primary)]/"], .terminal-mode .bg-blue-50, .terminal-mode .bg-gray-200, .terminal-mode [class*="bg-white/"] { background-color: rgba(96, 165, 250, 0.12) !important; }
+.terminal-mode .bg-white { background-color: #071426 !important; }
+.terminal-mode .border-gray-200, .terminal-mode .border-gray-300, .terminal-mode hr { border-color: rgba(96, 165, 250, 0.3) !important; }
+/* Forms */
+.terminal-mode input, .terminal-mode textarea, .terminal-mode select { background: #071426 !important; color: #e0f2fe !important; border-color: rgba(96, 165, 250, 0.45) !important; }
+.terminal-mode input::placeholder, .terminal-mode textarea::placeholder { color: #6f93c0 !important; }
+/* Long-form content */
+.terminal-mode .prose { --tw-prose-body: #c7dcf7; --tw-prose-headings: #a5c8ff; --tw-prose-links: #7cc0ff; --tw-prose-bold: #e0f2fe; --tw-prose-counters: #8fb3e0; --tw-prose-bullets: #60a5fa; --tw-prose-hr: rgba(96,165,250,.3); --tw-prose-quotes: #c7dcf7; --tw-prose-quote-borders: #60a5fa; --tw-prose-code: #e0f2fe; --tw-prose-th-borders: rgba(96,165,250,.4); --tw-prose-td-borders: rgba(96,165,250,.25); }
+.terminal-mode .prose a, .terminal-mode .blog-post.prose a { color: #7cc0ff !important; }
+.terminal-mode .prose strong { color: #e0f2fe !important; }
+.terminal-mode .prose code { color: #e0f2fe; background: rgba(96,165,250,.12); }
+.terminal-mode .prose pre { background: #071426 !important; color: #e0f2fe; }
+/* Keep banner and hero text exactly as designed (already light on dark) */
+.terminal-mode .page-banner p, .terminal-mode section.relative p { color: #e0f2fe !important; }
 
 @media (prefers-reduced-motion: reduce) {
   .status-lamp, .module-lamps span, .terminal-cursor-block { animation: none !important; }
@@ -169,5 +202,5 @@
 .timeline li::before { content: ""; position: absolute; left: calc(-1.25rem - 6px); top: 0.75rem; width: 10px; height: 7px; border-radius: 2px; background: #60a5fa; box-shadow: 0 0 6px #60a5fa; }
 .timeline-year { color: var(--wopr-secondary, #1e3a5f); font-weight: 600; letter-spacing: 0.08em; min-width: 3.5rem; }
 .timeline-text { color: #4b5563; }
-.terminal-mode .timeline-year { color: #93c5fd; }
-.terminal-mode .timeline-text { color: #bfdbfe; }
+.terminal-mode .timeline-year { color: #a5c8ff; }
+.terminal-mode .timeline-text { color: #c7dcf7; }
