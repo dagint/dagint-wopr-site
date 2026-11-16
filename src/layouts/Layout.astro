@@ -221,9 +221,9 @@ const organizationLd = {
   </head>
   <body class="min-h-screen flex flex-col text-gray-800 font-sans antialiased bg-[var(--wopr-bg)] bg-gradient-to-b from-slate-50 via-[#eef2f7] to-slate-100">
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header class="bg-[var(--wopr-header)] border-b border-white/10 sticky top-0 z-50 shrink-0">
+    <header class="site-header sticky top-0 z-50 shrink-0">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
-        <a href="/" class="font-mono font-semibold text-white text-lg tracking-tight hover:text-[var(--wopr-accent)] transition-colors">DaGint</a>
+        <a href="/" class="site-logo font-mono font-semibold text-lg tracking-tight transition-colors"><span class="status-lamp" aria-hidden="true"></span>DaGint</a>
         {/* Desktop nav */}
         <nav class="hidden sm:flex items-center gap-6" aria-label="Main">
           {nav.map(({ href, label }) => {
