@@ -204,3 +204,21 @@
 .timeline-text { color: #4b5563; }
 .terminal-mode .timeline-year { color: #a5c8ff; }
 .terminal-mode .timeline-text { color: #c7dcf7; }
+
+/* Contact page backdrop: the faint vector map behind the form, fading out at the edges. */
+.contact-stage { position: relative; overflow: hidden; }
+.contact-stage::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: url('/img/blog-default.webp') center / cover no-repeat;
+  opacity: 0.6;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 95%);
+          mask-image: radial-gradient(ellipse at center, #000 55%, transparent 95%);
+}
+
+/* Footer: a console status line rather than a solid block. */
+.site-footer { background: #040d1a; border-top: 1px solid rgba(96, 165, 250, 0.35); box-shadow: 0 -1px 12px rgba(96, 165, 250, 0.15); font-family: ui-monospace, 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 0.06em; }
+.site-footer p { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.terminal-mode .site-footer .footer-id { color: #a5c8ff !important; }
+.terminal-mode .site-footer .footer-meta { color: #8fb3e0 !important; }
+.site-footer .footer-dim { color: #6f93c0; }
+.terminal-mode .site-footer a { color: #7cc0ff; text-decoration: underline; text-underline-offset: 3px; }
