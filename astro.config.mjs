@@ -29,6 +29,8 @@ export default defineConfig({
   },
   vite: {
     build: {
+      // Keep even small client scripts external for script-src CSP.
+      assetsInlineLimit: 0,
       // Minify CSS to reduce file size
       cssMinify: true,
       // Use esbuild for faster minification

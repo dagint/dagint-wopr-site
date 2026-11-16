@@ -122,7 +122,10 @@ const organizationLd = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0A2540" />
+    <meta name="theme-color" content="#0b1913" />
+    <script is:inline src="/scripts/terminal.js" defer></script>
+    {/* Without JS the mobile menu is shown open and its toggle hidden; with JS it starts closed, so there is no flash before the deferred script runs. */}
+    <noscript><style>@media (max-width: 639px) { #mobile-menu { display: block !important; } #mobile-menu-btn { display: none !important; } }</style></noscript>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical.toString()} />
     {noindex && <meta name="robots" content="noindex" />}
@@ -219,7 +222,7 @@ const organizationLd = {
   </head>
   <body class="min-h-screen flex flex-col text-gray-800 font-sans antialiased bg-[var(--wopr-bg)] bg-gradient-to-b from-slate-50 via-[#eef2f7] to-slate-100">
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header class="bg-[var(--wopr-header)] border-b border-white/10 sticky top-0 z-50 shrink-0">
+    <header class="terminal-screen bg-[var(--wopr-header)] border-b border-white/10 sticky top-0 z-50 shrink-0">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14">
         <a href="/" class="font-mono font-semibold text-white text-lg tracking-tight hover:text-[var(--wopr-accent)] transition-colors">DaGint</a>
         {/* Desktop nav */}
@@ -256,27 +259,27 @@ const organizationLd = {
         </div>
       </nav>
     </header>
-    <!-- Bundled, not is:inline: the CSP allows script-src 'self' and no inline hashes. -->
-    <script>
-      (function() {
-        var btn = document.getElementById('mobile-menu-btn');
-        var menu = document.getElementById('mobile-menu');
-        var open = document.getElementById('menu-icon-open');
-        var close = document.getElementById('menu-icon-close');
-        if (!btn || !menu || !open || !close) return;
-        btn.addEventListener('click', function() {
-          var expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          menu.classList.toggle('hidden');
-          open.classList.toggle('hidden');
-          close.classList.toggle('hidden');
-        });
-      })();
-    </script>
+    <aside class="terminal-controls" aria-label="Terminal appearance" hidden id="terminal-controls">
+      <label for="phosphor-palette">Phosphor</label>
+      <select id="phosphor-palette">
+        <option value="green">Green</option>
+        <option value="amber">Amber</option>
+      </select>
+      <button type="button" id="boot-start">Run boot intro</button>
+    </aside>
+    <section id="boot-intro" class="terminal-screen boot-intro" aria-label="Terminal boot intro" hidden>
+      <div aria-hidden="true" class="boot-output">
+        <p>DG / LOCAL CONSOLE</p>
+        <p>Display buffer ready.</p>
+        <p>Navigation channels available.</p>
+        <p>Interface ready.<span class="terminal-cursor">▋</span></p>
+      </div>
+      <button type="button" id="boot-skip">Skip intro</button>
+    </section>
     <main id="main-content" tabindex="-1" class="flex-1 flex flex-col">
       <slot />
     </main>
-    <footer class="bg-[var(--wopr-header)] border-t border-white/10 shrink-0">
+    <footer class="terminal-screen bg-[var(--wopr-header)] border-t border-white/10 shrink-0">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-blue-50">
           <span class="font-mono font-medium text-white">DaGint Computer Support</span>
