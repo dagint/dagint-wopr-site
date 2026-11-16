@@ -1,0 +1,18 @@
+---
+// A service card styled as a console module: image, lamp row, monospace module label.
+interface Props { n: number; title: string; text: string; href: string; link: string; img: string; }
+const { n, title, text, href, link, img } = Astro.props;
+const label = `MODULE ${String(n).padStart(2, '0')}`;
+---
+<article class="module-card card overflow-hidden flex flex-col">
+  <div class="module-media">
+    <img src={img} alt="" width="1200" height="800" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+    <div class="module-lamps" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="p-6 flex flex-col flex-1">
+    <p class="font-mono text-xs tracking-widest text-[var(--wopr-secondary)]">{label} //</p>
+    <h2 class="font-mono font-semibold text-[var(--wopr-primary)] text-lg mt-1">{title}</h2>
+    <p class="text-gray-600 text-sm mt-2 flex-1">{text}</p>
+    <a href={href} class="inline-block mt-3 text-sm font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">{link}</a>
+  </div>
+</article>
