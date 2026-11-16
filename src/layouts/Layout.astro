@@ -268,7 +268,8 @@ const organizationLd = {
         </div>
       </nav>
     </header>
-    <script is:inline>
+    <!-- Bundled, not is:inline: the CSP allows script-src 'self' and no inline hashes. -->
+    <script>
       (function() {
         var btn = document.getElementById('mobile-menu-btn');
         var menu = document.getElementById('mobile-menu');
