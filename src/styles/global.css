@@ -163,3 +163,11 @@
   .status-lamp, .module-lamps span, .terminal-cursor-block { animation: none !important; }
   .lamps-flash .lamp-panel { animation: none; }
 }
+/* About timeline (since 2010) */
+.timeline { list-style: none; margin: 0 0 2rem; padding: 0 0 0 1.25rem; border-left: 2px solid rgba(96, 165, 250, 0.45); font-family: ui-monospace, 'JetBrains Mono', monospace; font-size: 0.85rem; }
+.timeline li { position: relative; display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; padding: 0.35rem 0; }
+.timeline li::before { content: ""; position: absolute; left: calc(-1.25rem - 6px); top: 0.75rem; width: 10px; height: 7px; border-radius: 2px; background: #60a5fa; box-shadow: 0 0 6px #60a5fa; }
+.timeline-year { color: var(--wopr-secondary, #1e3a5f); font-weight: 600; letter-spacing: 0.08em; min-width: 3.5rem; }
+.timeline-text { color: #4b5563; }
+.terminal-mode .timeline-year { color: #93c5fd; }
+.terminal-mode .timeline-text { color: #bfdbfe; }
