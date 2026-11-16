@@ -90,3 +90,37 @@
 .blog-post.prose a:hover {
   text-decoration: underline;
 }
+
+/* Indicator-lamp panel (original design, 2026-11-16): three frames of the same lamp grid,
+   stacked; the top two switch on and off in steps so lamps appear to blink. No JavaScript.
+   Reduced motion shows a single still frame. */
+.lamp-panel {
+  background-color: #08182e;
+  background-image: url('/lamps-a.svg');
+  background-size: 528px 216px;
+  background-position: center;
+}
+.lamp-panel::before,
+.lamp-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: 528px 216px;
+  background-position: center;
+  opacity: 0;
+}
+.lamp-panel::before { background-image: url('/lamps-b.svg'); animation: lamp-frame 1.7s steps(1, end) infinite; }
+.lamp-panel::after  { background-image: url('/lamps-c.svg'); animation: lamp-frame 2.9s steps(1, end) infinite 0.6s; }
+@keyframes lamp-frame { 0% { opacity: 0; } 50% { opacity: 1; } }
+.lamp-panel--dim { opacity: 0.55; }
+@media (prefers-reduced-motion: reduce) {
+  .lamp-panel::before, .lamp-panel::after { animation: none; opacity: 0; }
+}
+/* Keep banner titles readable over the lamps: fade the panel out behind the text (left side). */
+.page-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(8, 24, 46, 0.92) 0%, rgba(8, 24, 46, 0.7) 50%, rgba(8, 24, 46, 0.25) 100%);
+  pointer-events: none;
+}
