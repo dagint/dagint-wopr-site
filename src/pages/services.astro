@@ -5,6 +5,7 @@ const serviceGroups = [
   {
     name: 'Support & repair',
     icon: 'support',
+    img: '/img/services-support.webp',
     items: [
       { title: 'Computer repair', description: 'Hardware and software diagnostics, virus removal, and repairs for PCs and Macs.' },
       { title: 'Remote support', description: 'Secure remote access to fix issues quickly—no on-site visit required.' },
@@ -16,6 +17,7 @@ const serviceGroups = [
   {
     name: 'Infrastructure & security',
     icon: 'security',
+    img: '/img/services-security.webp',
     items: [
       { title: 'Networking', description: 'Wi‑Fi, routers, and home or small-office networks—fast and reliable.' },
       { title: 'Security', description: 'Endpoint protection, firewalls, and security best practices for your environment.' },
@@ -26,6 +28,7 @@ const serviceGroups = [
   {
     name: 'Managed services & cloud',
     icon: 'cloud',
+    img: '/img/services-cloud.webp',
     items: [
       { title: 'MSP (managed services)', description: 'Proactive monitoring, maintenance, and support so you can focus on your work.' },
       { title: 'Cloud', description: 'Microsoft 365, Azure, backups, and cloud migration or hybrid setup.' },
@@ -67,6 +70,7 @@ const serviceGroups = [
               {group.name}
             </h2>
           </div>
+          <img src={group.img} alt="" width="1200" height="400" loading="lazy" decoding="async" class="section-image mb-6" />
           <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {group.items.map((s) => (
               <li>

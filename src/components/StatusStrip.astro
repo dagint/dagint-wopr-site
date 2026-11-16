@@ -1,0 +1,19 @@
+---
+// Terminal-style status readout under the hero. Deliberately no response-time claims.
+const lines = [
+  { label: 'SUPPORT REQUESTS', value: 'BY EMAIL' },
+  { label: 'REMOTE SESSIONS', value: 'RUSTDESK' },
+  { label: 'AVAILABILITY', value: 'LIMITED, BY ARRANGEMENT' },
+];
+---
+<section class="status-strip" aria-label="Service status">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-5 grid gap-2 sm:grid-cols-3 sm:gap-6">
+    {lines.map((l) => (
+      <p class="status-line">
+        <span class="status-lamp" aria-hidden="true"></span>
+        <span class="status-label">{l.label}</span>
+        <span class="status-value">{l.value}</span>
+      </p>
+    ))}
+  </div>
+</section>

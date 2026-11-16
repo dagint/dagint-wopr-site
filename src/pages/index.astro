@@ -1,28 +1,19 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Hero from '@/components/Hero.astro';
+import StatusStrip from '@/components/StatusStrip.astro';
+import ModuleCard from '@/components/ModuleCard.astro';
 ---
 
 <Layout title="DaGint Computer Support">
   <Hero />
+  <StatusStrip />
 
   <section class="page-section">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-      <div class="card p-6 border-l-4 border-l-[var(--wopr-accent)]">
-        <h2 class="font-mono font-semibold text-[var(--wopr-primary)] text-lg">Support & repair</h2>
-        <p class="text-gray-600 text-sm mt-2">PC and Mac repair, remote support, data recovery, and troubleshooting when you need it.</p>
-        <a href="/services" class="inline-block mt-3 text-sm font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">Services →</a>
-      </div>
-      <div class="card p-6 border-l-4 border-l-[var(--wopr-secondary)]">
-        <h2 class="font-mono font-semibold text-[var(--wopr-primary)] text-lg">Infrastructure & security</h2>
-        <p class="text-gray-600 text-sm mt-2">Networking, security, updates, and authentication so your systems stay reliable and secure.</p>
-        <a href="/services" class="inline-block mt-3 text-sm font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">Learn more →</a>
-      </div>
-      <div class="card p-6 border-l-4 border-l-[var(--wopr-accent)]/70">
-        <h2 class="font-mono font-semibold text-[var(--wopr-primary)] text-lg">Managed & cloud</h2>
-        <p class="text-gray-600 text-sm mt-2">MSP-style monitoring, Microsoft 365, Azure, and lifecycle support so you can focus on your work.</p>
-        <a href="/services" class="inline-block mt-3 text-sm font-medium text-[var(--wopr-secondary)] hover:text-[var(--wopr-primary)] hover:underline">Learn more →</a>
-      </div>
+      <ModuleCard n={1} title="Support & repair" text="PC and Mac repair, remote support, data recovery, and troubleshooting when you need it." href="/services" link="Services →" img="/img/services-support.webp" />
+      <ModuleCard n={2} title="Infrastructure & security" text="Networking, security, updates, and authentication so your systems stay reliable and secure." href="/services" link="Learn more →" img="/img/services-security.webp" />
+      <ModuleCard n={3} title="Managed & cloud" text="MSP-style monitoring, Microsoft 365, Azure, and lifecycle support so you can focus on your work." href="/services" link="Learn more →" img="/img/services-cloud.webp" />
     </div>
   </section>
 
@@ -32,7 +23,7 @@ import Hero from '@/components/Hero.astro';
       Home users, small offices, and growing teams. We tailor support to your size—from one-off fixes to ongoing managed services. No lock-in.
     </p>
     <a href="/contact" class="inline-flex items-center mt-6 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--wopr-primary)] hover:bg-[var(--wopr-secondary)] transition-colors">
-      Get a free quote
+      Email a request
     </a>
   </section>
 

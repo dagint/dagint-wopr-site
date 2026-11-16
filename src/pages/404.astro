@@ -7,13 +7,14 @@ import Layout from '@/layouts/Layout.astro';
     <div class="absolute inset-0 lamp-panel lamp-panel--dim" aria-hidden="true"></div>
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 w-full">
       <h1 class="page-title-on-banner">404</h1>
-      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl">
-        The page you're looking for doesn't exist or was moved.
+      <p class="mt-2 text-white/95 text-sm sm:text-base max-w-2xl font-mono">
+        Strange. The page you want isn't here.<span class="terminal-cursor-block" aria-hidden="true"></span>
       </p>
     </div>
   </section>
 
   <div class="page-section max-w-xl">
+    <img src="/img/not-found.webp" alt="" width="800" height="800" loading="lazy" decoding="async" class="w-48 h-48 rounded-2xl object-cover mb-8 bg-[#08182e]" />
     <p class="text-gray-600 mb-6">Here are some places to try instead:</p>
     <ul class="space-y-3">
       <li>
